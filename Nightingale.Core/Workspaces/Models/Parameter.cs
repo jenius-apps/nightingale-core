@@ -1,0 +1,106 @@
+﻿using Nightingale.Core.Common;
+
+namespace Nightingale.Core.Workspaces.Models
+{
+    /// <summary>
+    /// An object that holds a key value pair
+    /// and can also be enabled or disabled.
+    /// </summary>
+    public class Parameter : ObservableBase, IDeepCloneable<Parameter>
+    {
+        private string _key;
+        private string _value;
+        private bool _enabled;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <remarks>
+        /// This was specifically defined to
+        /// enable serialization.
+        /// </remarks>
+        public Parameter() { }
+
+        /// <summary>
+        /// Constructs using given values.
+        /// </summary>
+        public Parameter(
+            bool isEnabled,
+            string key,
+            string value)
+        {
+            Enabled = isEnabled;
+            Key = key;
+            Value = value;
+        }
+
+        /// <summary>
+        /// The key of the key value pair.
+        /// Observable.
+        /// </summary>
+        public string Key
+        {
+            get => _key;
+            set
+            {
+                if (_key != value)
+                {
+                    _key = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The value of the key value pair.
+        /// Observable.
+        /// </summary>
+        public string Value
+        {
+            get => _value;
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Flag for enabling or disabling this parameter.
+        /// Observable.
+        /// </summary>
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled != value)
+                {
+                    _enabled = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <inheritdoc/>
+        public Parameter DeepClone()
+        {
+            var result = new Parameter
+            {
+                Key = this.Key,
+                Value = this.Value,
+                Enabled = this.Enabled
+            };
+
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Key}={this.Value}";
+        }
+    }
+}
