@@ -2,7 +2,7 @@
 
 ![](pics/logo.png)
 
-Welcome to the official repository for Nightingale Core -- a .NET Standard 2.0 library containing the core models and functionality required to build the simple and fast [Nightinagle REST Client](https://github.com/jenius-apps/nightingale-rest-api-client). The app itself is already available on the Microsoft Store: https://www.microsoft.com/en-us/p/nightingale-rest-api-client/9n2t6f9f5zdn.
+Welcome to the official repository for Nightingale Core -- a .NET Standard 2.0 library containing the core models and functionality required to build the simple and fast [Nightingale REST Client](https://github.com/jenius-apps/nightingale-rest-api-client). The app itself is already available on the Microsoft Store: https://www.microsoft.com/en-us/p/nightingale-rest-api-client/9n2t6f9f5zdn.
 
 ## What is Nightingale?
 
@@ -12,7 +12,7 @@ Nightingale is a REST client app that lets you send HTTP requests and view their
 
 ## What is the "core"?
 
-Nightingale Core is the .NET Standard 2.0 library which contains the core domain models and logic for Nightinagle. The object schema, the request sending logic, the http response parsing, and more are the types of logic available in the core. 
+Nightingale Core is the .NET Standard 2.0 library which contains the core domain models and logic for Nightingale. The object schema, the request sending logic, the http response parsing, and more are the types of logic available in the core. 
 
 The core already exists, but it's been closed-source, and this repo is where I am moving the core out into the open.
 
