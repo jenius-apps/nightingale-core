@@ -1,5 +1,4 @@
-﻿using Nightingale.Core.Extensions;
-using Nightingale.Core.Models;
+﻿using Nightingale.Core.Auth.Enums;
 using Nightingale.Core.Workspaces.Models;
 using System;
 using System.Linq;
