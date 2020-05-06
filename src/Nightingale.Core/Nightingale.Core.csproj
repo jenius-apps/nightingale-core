@@ -3,11 +3,34 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>JeniusApps.Nightingale.Core</RootNamespace>
+    <PackageId>JeniusApps.Nightingale.Core</PackageId>
+    <Version>0.1.5-preview</Version>
+    <Company>JeniusApps</Company>
+    <Authors>Daniel Paulino</Authors>
+    <Copyright>© Jenius Apps</Copyright>
+    <Description>A .NET Standard library containing models and functionality necessary to build Nightingale REST client or use the Nightingale collection format (NCF).</Description>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>restapi,nightingale,webapi,jeniusapps,ncf,http,httpclient</PackageTags>
+    <RepositoryUrl>https://github.com/jenius-apps/nightingale-core</RepositoryUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <IsPackable>true</IsPackable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MimeMapping" Version="1.0.1.26" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
