@@ -1,4 +1,5 @@
-﻿using Nightingale.Core.Common;
+﻿using Newtonsoft.Json;
+using Nightingale.Core.Common;
 
 namespace Nightingale.Core.Workspaces.Models
 {
@@ -6,12 +7,8 @@ namespace Nightingale.Core.Workspaces.Models
     /// An object that holds a key value pair
     /// and can also be enabled or disabled.
     /// </summary>
-    public class Parameter : ObservableBase, IDeepCloneable<Parameter>
+    public class Parameter : ObservableBase, IDeepCloneable<Parameter>, IKeyValueToggle
     {
-        private string _key;
-        private string _value;
-        private bool _enabled;
-
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -34,10 +31,8 @@ namespace Nightingale.Core.Workspaces.Models
             Value = value;
         }
 
-        /// <summary>
-        /// The key of the key value pair.
-        /// Observable.
-        /// </summary>
+        /// <inheritdoc/>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Key
         {
             get => _key;
@@ -50,11 +45,10 @@ namespace Nightingale.Core.Workspaces.Models
                 }
             }
         }
+        private string _key;
 
-        /// <summary>
-        /// The value of the key value pair.
-        /// Observable.
-        /// </summary>
+        /// <inheritdoc/>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value
         {
             get => _value;
@@ -67,11 +61,9 @@ namespace Nightingale.Core.Workspaces.Models
                 }
             }
         }
+        private string _value;
 
-        /// <summary>
-        /// Flag for enabling or disabling this parameter.
-        /// Observable.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Enabled
         {
             get => _enabled;
@@ -84,6 +76,7 @@ namespace Nightingale.Core.Workspaces.Models
                 }
             }
         }
+        private bool _enabled;
 
         /// <inheritdoc/>
         public Parameter DeepClone()

@@ -11,7 +11,7 @@ namespace Nightingale.Core.Workspaces.Models
     /// Class representing a form data item
     /// used in a request.
     /// </summary>
-    public class FormData : ObservableBase, IDeepCloneable<FormData>
+    public class FormData : ObservableBase, IDeepCloneable<FormData>, IKeyValueToggle
     {
         /// <summary>
         /// Default constructor.
@@ -26,15 +26,11 @@ namespace Nightingale.Core.Workspaces.Models
             Enabled = enabled;
         }
 
-        /// <summary>
-        /// Key of the form data item.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Key { get; set; }
 
-        /// <summary>
-        /// Text value of the form data item.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
 
@@ -62,9 +58,7 @@ namespace Nightingale.Core.Workspaces.Models
         }
         private string _autoContentType;
 
-        /// <summary>
-        /// Flag for if this item is enabled or not.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Enabled { get; set; }
 
         /// <summary>
