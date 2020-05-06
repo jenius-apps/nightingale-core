@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Nightingale.Core.Common
+namespace JeniusApps.Nightingale.Core.Common
 {
     /// <summary>
     /// Base class that implements

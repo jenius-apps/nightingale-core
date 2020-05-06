@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Common;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// An object that holds a key value pair

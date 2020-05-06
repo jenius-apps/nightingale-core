@@ -1,6 +1,6 @@
-﻿using Nightingale.Core.Workspaces.Models;
+﻿using JeniusApps.Nightingale.Core.Workspaces.Models;
 
-namespace Nightingale.Core.Workspaces.Enums
+namespace JeniusApps.Nightingale.Core.Workspaces.Enums
 {
     /// <summary>
     /// The authentication type for an <see cref="Authentication"/>.

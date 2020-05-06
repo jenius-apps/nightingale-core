@@ -1,4 +1,4 @@
-﻿namespace Nightingale.Core.Workspaces.Enums
+﻿namespace JeniusApps.Nightingale.Core.Workspaces.Enums
 {
     /// <summary>
     /// The type of the form data item.

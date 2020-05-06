@@ -1,7 +1,7 @@
-﻿using Nightingale.Core.Common;
+﻿using JeniusApps.Nightingale.Core.Common;
 using System.Collections.Generic;
 
-namespace Nightingale.Core.Workspaces.Extensions
+namespace JeniusApps.Nightingale.Core.Workspaces.Extensions
 {
     /// <summary>
     /// Extensions for deep copy.

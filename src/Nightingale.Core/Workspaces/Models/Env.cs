@@ -1,9 +1,9 @@
-﻿using Nightingale.Core.Common;
-using Nightingale.Core.Workspaces.Enums;
-using Nightingale.Core.Workspaces.Extensions;
+﻿using JeniusApps.Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Workspaces.Enums;
+using JeniusApps.Nightingale.Core.Workspaces.Extensions;
 using System.Collections.ObjectModel;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// An object that contains variables

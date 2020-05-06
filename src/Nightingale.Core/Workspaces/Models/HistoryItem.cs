@@ -1,8 +1,8 @@
-﻿using Nightingale.Core.Common;
-using Nightingale.Core.Workspaces.Extensions;
+﻿using JeniusApps.Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Workspaces.Extensions;
 using System;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// Object designed to be a historical snapshot of a

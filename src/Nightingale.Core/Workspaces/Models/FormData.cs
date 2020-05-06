@@ -1,11 +1,11 @@
 ﻿using MimeMapping;
 using Newtonsoft.Json;
-using Nightingale.Core.Common;
-using Nightingale.Core.Workspaces.Enums;
+using JeniusApps.Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Workspaces.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// Class representing a form data item

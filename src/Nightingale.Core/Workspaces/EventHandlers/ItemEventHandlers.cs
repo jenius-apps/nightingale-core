@@ -1,7 +1,7 @@
-﻿using Nightingale.Core.Workspaces.Models;
+﻿using JeniusApps.Nightingale.Core.Workspaces.Models;
 using System.Collections.Specialized;
 
-namespace Nightingale.Core.Workspaces.EventHandlers
+namespace JeniusApps.Nightingale.Core.Workspaces.EventHandlers
 {
     /// <summary>
     /// Class for static event handlers

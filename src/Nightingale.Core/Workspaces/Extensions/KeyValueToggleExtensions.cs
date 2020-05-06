@@ -1,8 +1,8 @@
-﻿using Nightingale.Core.Workspaces.Models;
+﻿using JeniusApps.Nightingale.Core.Workspaces.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nightingale.Core.Workspaces.Extensions
+namespace JeniusApps.Nightingale.Core.Workspaces.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="IKeyValueToggle"/>

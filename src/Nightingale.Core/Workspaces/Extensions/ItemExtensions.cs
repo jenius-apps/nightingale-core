@@ -1,9 +1,9 @@
-﻿using Nightingale.Core.Workspaces.Enums;
-using Nightingale.Core.Workspaces.Models;
+﻿using JeniusApps.Nightingale.Core.Workspaces.Enums;
+using JeniusApps.Nightingale.Core.Workspaces.Models;
 using System;
 using System.Linq;
 
-namespace Nightingale.Core.Workspaces.Extensions
+namespace JeniusApps.Nightingale.Core.Workspaces.Extensions
 {
     /// <summary>
     /// Extension methods for the <see cref="Item"/> class.

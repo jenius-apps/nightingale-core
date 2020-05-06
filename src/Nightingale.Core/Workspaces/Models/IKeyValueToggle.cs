@@ -1,4 +1,4 @@
-﻿namespace Nightingale.Core.Workspaces.Models
+﻿namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// An interface for items containing a

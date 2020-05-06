@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Nightingale.Core.Common;
-using Nightingale.Core.Workspaces.EventHandlers;
+using JeniusApps.Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Workspaces.EventHandlers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// Class that holds all the data for one

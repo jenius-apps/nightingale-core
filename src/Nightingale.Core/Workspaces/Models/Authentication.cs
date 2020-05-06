@@ -1,8 +1,8 @@
-﻿using Nightingale.Core.Common;
-using Nightingale.Core.Workspaces.Enums;
+﻿using JeniusApps.Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Workspaces.Enums;
 using System.Collections.Generic;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// Class representing an the authentication

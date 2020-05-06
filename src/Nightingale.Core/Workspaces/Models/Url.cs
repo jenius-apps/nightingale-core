@@ -1,10 +1,10 @@
-﻿using Nightingale.Core.Common;
-using Nightingale.Core.Workspaces.Extensions;
+﻿using JeniusApps.Nightingale.Core.Common;
+using JeniusApps.Nightingale.Core.Workspaces.Extensions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// An object representing

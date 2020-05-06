@@ -1,4 +1,4 @@
-﻿namespace Nightingale.Core.Common
+﻿namespace JeniusApps.Nightingale.Core.Common
 {
     /// <summary>
     /// Interface for performing a deep clone

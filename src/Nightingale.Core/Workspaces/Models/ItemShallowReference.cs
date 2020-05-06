@@ -1,6 +1,6 @@
-﻿using Nightingale.Core.Workspaces.Extensions;
+﻿using JeniusApps.Nightingale.Core.Workspaces.Extensions;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// Shallow reference for an item. This is useful

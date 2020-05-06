@@ -1,7 +1,7 @@
-﻿using Nightingale.Core.Common;
+﻿using JeniusApps.Nightingale.Core.Common;
 using System.Linq;
 
-namespace Nightingale.Core.Workspaces.Models
+namespace JeniusApps.Nightingale.Core.Workspaces.Models
 {
     /// <summary>
     /// A class representing an HTTP cookie.
