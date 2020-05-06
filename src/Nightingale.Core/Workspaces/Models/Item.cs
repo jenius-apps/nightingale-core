@@ -207,10 +207,10 @@ namespace Nightingale.Core.Workspaces.Models
             var other = new Item
             {
                 Parent = this.Parent,
-                Url = this.Url?.DeepClone() as Url,
-                Auth = this.Auth?.DeepClone() as Authentication,
-                Body = this.Body?.DeepClone() as RequestBody,
-                Response = this.Response?.DeepClone() as Response,
+                Url = this.Url?.DeepClone(),
+                Auth = this.Auth?.DeepClone(),
+                Body = this.Body?.DeepClone(),
+                Response = this.Response?.DeepClone(),
                 Type = this.Type,
                 Name = this.Name,
                 IsExpanded = this.IsExpanded,
