@@ -1,5 +1,8 @@
 # Nightingale Core
 
+![](https://img.shields.io/nuget/v/JeniusApps.Nightingale.Core.svg)
+
+
 ![](images/logo.png)
 
 Welcome to the official repository for Nightingale Core -- a .NET Standard 2.0 library containing the core models and functionality required to build the simple and fast [Nightingale REST Client](https://github.com/jenius-apps/nightingale-rest-api-client). The app itself is already available on the Microsoft Store: https://www.microsoft.com/en-us/p/nightingale-rest-api-client/9n2t6f9f5zdn.
