@@ -1,7 +1,6 @@
 # Nightingale Core
 
-![](https://img.shields.io/nuget/v/JeniusApps.Nightingale.Core.svg)
-
+[![NuGet](https://img.shields.io/nuget/v/JeniusApps.Nightingale.Core.svg)](https://www.nuget.org/packages/JeniusApps.Nightingale.Core)
 
 ![](images/logo.png)
 
