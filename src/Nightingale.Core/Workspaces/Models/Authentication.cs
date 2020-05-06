@@ -1,5 +1,5 @@
-﻿using Nightingale.Core.Auth.Enums;
-using Nightingale.Core.Common;
+﻿using Nightingale.Core.Common;
+using Nightingale.Core.Workspaces.Enums;
 using System.Collections.Generic;
 
 namespace Nightingale.Core.Workspaces.Models

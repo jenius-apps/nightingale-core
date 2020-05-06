@@ -1,6 +1,6 @@
 ﻿using Nightingale.Core.Workspaces.Models;
 
-namespace Nightingale.Core.Auth.Enums
+namespace Nightingale.Core.Workspaces.Enums
 {
     /// <summary>
     /// The authentication type for an <see cref="Authentication"/>.

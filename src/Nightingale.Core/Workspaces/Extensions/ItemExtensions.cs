@@ -1,4 +1,4 @@
-﻿using Nightingale.Core.Auth.Enums;
+﻿using Nightingale.Core.Workspaces.Enums;
 using Nightingale.Core.Workspaces.Models;
 using System;
 using System.Linq;

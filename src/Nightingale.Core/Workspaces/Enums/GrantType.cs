@@ -1,4 +1,4 @@
-﻿namespace Nightingale.Core.Auth.Enums
+﻿namespace Nightingale.Core.Workspaces.Enums
 {
     /// <summary>
     /// The supported grant types for OAuth 2.0.
