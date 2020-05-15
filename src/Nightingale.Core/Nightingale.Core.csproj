@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>JeniusApps.Nightingale.Core</RootNamespace>
     <PackageId>JeniusApps.Nightingale.Core</PackageId>
-    <Version>0.1.6-preview</Version>
+    <Version>0.1.7-preview</Version>
     <Company>JeniusApps</Company>
     <Authors>Daniel Paulino</Authors>
     <Copyright>© Jenius Apps</Copyright>
@@ -20,6 +20,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageIcon>package-icon.png</PackageIcon>
+    <AssemblyName>JeniusApps.Nightingale.Core</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
