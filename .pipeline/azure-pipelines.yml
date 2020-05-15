@@ -25,7 +25,13 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
     packagesToPack: 'src/Nightingale.Core/Nightingale.Core.csproj'
     nobuild: true
-    versioningScheme: 'off'
+    versioningScheme: byBuildNumber
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
 # Push a project
-- script: dotnet nuget push $(Build.ArtifactStagingDirectory)/**/*.nupkg -s https://api.nuget.org/v3/index.json -k $(apiKey)
+# - script: dotnet nuget push $(Build.ArtifactStagingDirectory)/**/*.nupkg -s https://api.nuget.org/v3/index.json -k $(apiKey)
