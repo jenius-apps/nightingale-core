@@ -1,0 +1,31 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: nuget-publish
+  - name: buildConfiguration
+    value: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: 'src/Nightingale.Core/Nightingale.Core.csproj'
+
+# The "nobuild" means the project will not be compiled before running pack, because its already built in above step
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'src/Nightingale.Core/Nightingale.Core.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
+# Push a project
+- script: dotnet nuget push $(Build.ArtifactStagingDirectory)/**/*.nupkg -s https://api.nuget.org/v3/index.json -k $(apiKey)
