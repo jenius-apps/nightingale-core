@@ -25,7 +25,7 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
     packagesToPack: 'src/Nightingale.Core/Nightingale.Core.csproj'
     nobuild: true
-    versioningScheme: byBuildNumber
+    versioningScheme: 'off'
 
 - task: PublishBuildArtifacts@1
   inputs:
