@@ -1,0 +1,532 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JeniusApps.Nightingale.Data</name>
+    </assembly>
+    <members>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Authentication">
+            <summary>
+            The authentication configuration
+            for an item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Authentication.AuthType">
+            <summary>
+            This item's type.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Authentication.AuthProperties">
+            <summary>
+            Dictionary of various auth configurations.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.AuthType">
+            <summary>
+            The authentication type.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.GrantType">
+            <summary>
+            The grant type for use with
+            OAuth 2.0.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Cookie">
+            <summary>
+            A class representing an HTTP cookie in Nightingale.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Cookie.Domain">
+            <summary>
+            Gets or sets the cookie's domain.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Cookie.Raw">
+            <summary>
+            Gets or sets the cookie's raw string.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Cookie.Id">
+            <summary>
+            GUID for this cookie.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Cookie.ParentId">
+            <summary>
+            ID of this cookie's parent.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Envronment">
+            <summary>
+            Class representing a variable environment
+            in Nightingale.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Id">
+            <summary>
+            GUID for this environment.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.ParentId">
+            <summary>
+            ID for this environment's parent.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Name">
+            <summary>
+            Name of this environment.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.EnvironmentType">
+            <summary>
+            Type of environnment.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Variables">
+            <summary>
+            List of variables for this environment.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.EnvType">
+            <summary>
+            Type of environment.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.EnvType.Sub">
+            <summary>
+            Substitute. Any environment
+            that isn't the base environment.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.EnvType.Base">
+            <summary>
+            The base environment.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.HistoryItem">
+            <summary>
+            Object designed to be a historical snapshot of a
+            request item that was sent.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.HistoryItem.LastUsedDate">
+            <summary>
+            Last used date of this history item.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Item">
+            <summary>
+            This workspace item represents an object that
+            can be displayed in the tree of the workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Id">
+            <summary>
+            GUID for this item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.IsTemporary">
+            <summary>
+            If true, the item is just a tab
+            and it hasn't been saved to the workspace item tree.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Properties">
+            <summary>
+            A dictionary of properties usually
+            used by a GUI app.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Url">
+            <summary>
+            Url of item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Auth">
+            <summary>
+            Authentication configuration for item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Body">
+            <summary>
+            Request body configuration for item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.MockData">
+            <summary>
+            Data used for API mocking.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Children">
+            <summary>
+            List of children for this item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Headers">
+            <summary>
+            List of headers.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.ChainingRules">
+            <summary>
+            List of chaining rules to be used after
+            a request is sent.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Type">
+            <summary>
+            The item's type.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Name">
+            <summary>
+            Name of this item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.IsExpanded">
+            <summary>
+            Flag for whether this item is displaying
+            its children in the UI or not.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Method">
+            <summary>
+            HTTP method to be used for this request.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.Response">
+            <summary>
+            Response of request.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.ItemType">
+            <summary>
+            Enum for the type of item
+            this should be displayed in the tree.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ItemType.None">
+            <summary>
+            No type. Shouldn't be used
+            in normal scenarios. Only added
+            as a neutral default.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ItemType.Request">
+            <summary>
+            Item is a request object.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ItemType.Collection">
+            <summary>
+            Item is a collection of requests.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.MockData">
+            <summary>
+            Data used for a mock server.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.MockData.Body">
+            <summary>
+            Body to return when using a mock server.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.MockData.StatusCode">
+            <summary>
+            Status to return when using a mock server.
+            Default 200.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.MockData.ContentType">
+            <summary>
+            Content type to return when using a mock server.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.NcfFile">
+            <summary>
+            Nightingale Collection Format file.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.NcfFile.ActiveWorkspaceId">
+            <summary>
+            ID of the active workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.NcfFile.Workspaces">
+            <summary>
+            List of workspaces
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Parameter">
+            <summary>
+            Class representing a key value pair
+            with some other properties.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Parameter.Key">
+            <summary>
+            Key of parameter.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Parameter.Value">
+            <summary>
+            Value of parameter.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Parameter.Enabled">
+            <summary>
+            Multi-purpose flag for whether or not
+            this key value pair is enabled.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Parameter.Private">
+            <summary>
+            If private, value should not be exported
+            or transmitted outside of the user's
+            local device.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Parameter.Type">
+            <summary>
+            Type of parameter.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.ParamType">
+            <summary>
+            Type of parameter.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ParamType.Parameter">
+            <summary>
+            Generic parameter.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ParamType.Header">
+            <summary>
+            Represents an HTTP header.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ParamType.FormEncodedData">
+            <summary>
+            Represents form encoded data.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ParamType.EnvVariable">
+            <summary>
+            Represents an environment variable.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.ParamType.ChainingRule">
+            <summary>
+            Represents a chaining rule.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.BodyType">
+            <summary>
+            This item's type.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.JsonBody">
+            <summary>
+            JSON body text.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.XmlBody">
+            <summary>
+            XML body text.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.TextBody">
+            <summary>
+            Plain text body.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.FormEncodedData">
+            <summary>
+            List of form encoded data.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.FormDataList">
+            <summary>
+            List of form data.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.BinaryFilePath">
+            <summary>
+            Path for file.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.RequestBodyType">
+            <summary>
+            The type of request body.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.None">
+            <summary>
+            There is no request body.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.Json">
+            <summary>
+            Request body is JSON.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.Xml">
+            <summary>
+            Request body is XML.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.FormEncoded">
+            <summary>
+            Request body is form url encoded.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.Binary">
+            <summary>
+            Request body is binary or a file.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.FormData">
+            <summary>
+            Request body is multipart form data.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.RequestBodyType.Text">
+            <summary>
+            Request body is plain text.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Url">
+            <summary>
+            An object representing
+            a URL string.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Url.Base">
+            <summary>
+            String representation of the URL without queries.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Url.Queries">
+            <summary>
+            The queries in the URL string.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.Workspace">
+            <summary>
+            A Nightingale workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Id">
+            <summary>
+            GUID for this workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Name">
+            <summary>
+            Name of workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Methods">
+            <summary>
+            List of HTTP methods enabled
+            for this workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.OpenItemIds">
+            <summary>
+            List of items that were open as a tab at the
+            time of closing the workspace.
+            </summary>
+            <remarks>
+            The intention of this property is
+            to provide a way to restore the open tabs
+            when the customer re-opens Nightingale.
+            </remarks>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.TempItems">
+            <summary>
+            List of items that are shown as tabs
+            but are not stored in the Items tree.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Items">
+            <summary>
+            Tree of items in this workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.HistoryItems">
+            <summary>
+            List of history items for this workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Environments">
+            <summary>
+            List of environments for this workspace.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Cookies">
+            <summary>
+            List of HTTP cookies for this workspace.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.WorkspaceResponse">
+            <summary>
+            Class representing an HTTP response
+            in Nightinagle.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.Successful">
+            <summary>
+            Flag if the response was successful.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.RequestUrl">
+            <summary>
+            Raw request URL used that led to this response.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.StatusCode">
+            <summary>
+            Response HTTP status code.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.StatusDescription">
+            <summary>
+            Response status description
+            extracted from the HTTP response.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.TimeElapsed">
+            <summary>
+            Time in ms for the request's duration.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.Body">
+            <summary>
+            Body response.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.ContentType">
+            <summary>
+            Response content type.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.Cookies">
+            <summary>
+            List of raw cookies.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.Headers">
+            <summary>
+            List of raw headers.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.WorkspaceResponse.Log">
+            <summary>
+            Log information for the response.
+            </summary>
+        </member>
+    </members>
+</doc>

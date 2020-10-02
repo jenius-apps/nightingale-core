@@ -21,6 +21,11 @@
 	<IsPackable>true</IsPackable>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\kid_j\source\repos\Nightingale.Core\src\Nightingale.Data\JeniusApps.Nightingale.Data.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
