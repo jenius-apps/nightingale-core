@@ -25,10 +25,60 @@
             The authentication type.
             </summary>
         </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.None">
+            <summary>
+            No authentication to use.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.Basic">
+            <summary>
+            Use basic HTTP authentication.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.OAuth1">
+            <summary>
+            Use OAuth 1.0a authentication.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.OAuth2">
+            <summary>
+            Use OAuth 2.0 authentication.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.Bearer">
+            <summary>
+            Use bearer token authentication.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.Digest">
+            <summary>
+            Use digest authentication.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthType.InheritParent">
+            <summary>
+            Inherit the item's parent's authenticaiton configuration.
+            </summary>
+        </member>
         <member name="T:JeniusApps.Nightingale.Data.Models.GrantType">
             <summary>
             The grant type for use with
             OAuth 2.0.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.GrantType.client_credentials">
+            <summary>
+            Use client credential grant type for OAuth 2.0.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.GrantType.authorization_code">
+            <summary>
+            Use auth code grant type for OAuth 2.0.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.GrantType.implicit_flow">
+            <summary>
+            Use implicit flow grant type for OAuth 2.0.
             </summary>
         </member>
         <member name="T:JeniusApps.Nightingale.Data.Models.Cookie">
@@ -68,9 +118,7 @@
             </summary>
         </member>
         <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.ParentId">
-            <summary>
-            ID for this environment's parent.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Name">
             <summary>
@@ -103,6 +151,60 @@
             The base environment.
             </summary>
         </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.FormData">
+            <summary>
+            Class representing form data
+            for a request's multipart form body.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.Key">
+            <summary>
+            Key string for form data.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.Value">
+            <summary>
+            Value of form data if it's not a file.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.ContentType">
+            <summary>
+            HTTP content type defined by the user.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.FilePaths">
+            <summary>
+            List of paths for this form data
+            to attach.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.FormDataType">
+            <summary>
+            The type of form data.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.AutoContentType">
+            <summary>
+            The default content type for this form data.
+            Usually set when selecting a file. The file's
+            content type should be assigned here.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.FormDataType">
+            <summary>
+            The type of form data.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.FormDataType.Text">
+            <summary>
+            Form data contains text.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.FormDataType.File">
+            <summary>
+            Form data represents files.
+            </summary>
+        </member>
         <member name="T:JeniusApps.Nightingale.Data.Models.HistoryItem">
             <summary>
             Object designed to be a historical snapshot of a
@@ -112,6 +214,23 @@
         <member name="P:JeniusApps.Nightingale.Data.Models.HistoryItem.LastUsedDate">
             <summary>
             Last used date of this history item.
+            </summary>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.IHasParent">
+            <summary>
+            Interface depicting an item
+            that contains an ID reference to
+            its parent.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.IHasParent.Id">
+            <summary>
+            Id of item.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.IHasParent.ParentId">
+            <summary>
+            Id of parent.
             </summary>
         </member>
         <member name="T:JeniusApps.Nightingale.Data.Models.Item">
@@ -124,6 +243,9 @@
             <summary>
             GUID for this item.
             </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Item.ParentId">
+            <inheritdoc/>
         </member>
         <member name="P:JeniusApps.Nightingale.Data.Models.Item.IsTemporary">
             <summary>
@@ -422,6 +544,9 @@
             <summary>
             GUID for this workspace.
             </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.ParentId">
+            <inheritdoc/>
         </member>
         <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Name">
             <summary>

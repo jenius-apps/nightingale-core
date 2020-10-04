@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace JeniusApps.Nightingale.Data.Models
 {
@@ -6,12 +7,17 @@ namespace JeniusApps.Nightingale.Data.Models
     /// This workspace item represents an object that
     /// can be displayed in the tree of the workspace.
     /// </summary>
-    public class Item
+    public class Item : IHasParent
     {
         /// <summary>
         /// GUID for this item.
         /// </summary>
+        [JsonProperty("id")]
         public string Id { get; set; }
+
+        /// <inheritdoc/>
+        [JsonProperty("parentId")]
+        public string ParentId { get; set; }
 
         /// <summary>
         /// If true, the item is just a tab

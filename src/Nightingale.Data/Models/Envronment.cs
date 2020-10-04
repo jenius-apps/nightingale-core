@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace JeniusApps.Nightingale.Data.Models
 {
@@ -6,16 +7,16 @@ namespace JeniusApps.Nightingale.Data.Models
     /// Class representing a variable environment
     /// in Nightingale.
     /// </summary>
-    public class Envronment
+    public class Envronment : IHasParent
     {
         /// <summary>
         /// GUID for this environment.
         /// </summary>
+        [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <summary>
-        /// ID for this environment's parent.
-        /// </summary>
+        /// <inheritdoc/>
+        [JsonProperty("parentId")]
         public string ParentId { get; set; }
 
         /// <summary>

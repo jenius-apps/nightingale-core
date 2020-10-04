@@ -1,16 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace JeniusApps.Nightingale.Data.Models
 {
     /// <summary>
     /// A Nightingale workspace.
     /// </summary>
-    public class Workspace
+    public class Workspace : IHasParent
     {
         /// <summary>
         /// GUID for this workspace.
         /// </summary>
+        [JsonProperty("id")]
         public string Id { get; set; }
+
+        /// <inheritdoc/>
+        [JsonProperty("parentId")]
+        public string ParentId { get; set; }
 
         /// <summary>
         /// Name of workspace.
