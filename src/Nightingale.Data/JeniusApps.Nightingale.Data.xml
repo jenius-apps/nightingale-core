@@ -106,31 +106,31 @@
             ID of this cookie's parent.
             </summary>
         </member>
-        <member name="T:JeniusApps.Nightingale.Data.Models.Envronment">
+        <member name="T:JeniusApps.Nightingale.Data.Models.Environment">
             <summary>
             Class representing a variable environment
             in Nightingale.
             </summary>
         </member>
-        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Id">
+        <member name="P:JeniusApps.Nightingale.Data.Models.Environment.Id">
             <summary>
             GUID for this environment.
             </summary>
         </member>
-        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.ParentId">
+        <member name="P:JeniusApps.Nightingale.Data.Models.Environment.ParentId">
             <inheritdoc/>
         </member>
-        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Name">
+        <member name="P:JeniusApps.Nightingale.Data.Models.Environment.Name">
             <summary>
             Name of this environment.
             </summary>
         </member>
-        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.EnvironmentType">
+        <member name="P:JeniusApps.Nightingale.Data.Models.Environment.EnvironmentType">
             <summary>
             Type of environnment.
             </summary>
         </member>
-        <member name="P:JeniusApps.Nightingale.Data.Models.Envronment.Variables">
+        <member name="P:JeniusApps.Nightingale.Data.Models.Environment.Variables">
             <summary>
             List of variables for this environment.
             </summary>
