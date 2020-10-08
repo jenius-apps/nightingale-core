@@ -7,7 +7,7 @@ namespace JeniusApps.Nightingale.Data.Models
     /// Class representing a variable environment
     /// in Nightingale.
     /// </summary>
-    public class Envronment : IHasParent
+    public class Environment : IHasParent
     {
         /// <summary>
         /// GUID for this environment.

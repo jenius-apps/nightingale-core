@@ -59,7 +59,7 @@ namespace JeniusApps.Nightingale.Data.Models
         /// <summary>
         /// List of environments for this workspace.
         /// </summary>
-        public List<Envronment> Environments { get; set; }
+        public List<Environment> Environments { get; set; }
 
         /// <summary>
         /// List of HTTP cookies for this workspace.
