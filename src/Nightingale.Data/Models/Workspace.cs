@@ -64,6 +64,6 @@ namespace JeniusApps.Nightingale.Data.Models
         /// <summary>
         /// List of HTTP cookies for this workspace.
         /// </summary>
-        public List<Cookie> Cookies { get; set; }
+        public List<Cookie> WorkspaceCookies { get; set; }
     }
 }
