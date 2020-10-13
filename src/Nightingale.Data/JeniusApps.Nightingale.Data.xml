@@ -591,7 +591,7 @@
             List of environments for this workspace.
             </summary>
         </member>
-        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.Cookies">
+        <member name="P:JeniusApps.Nightingale.Data.Models.Workspace.WorkspaceCookies">
             <summary>
             List of HTTP cookies for this workspace.
             </summary>
