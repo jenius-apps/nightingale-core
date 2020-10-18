@@ -4,6 +4,49 @@
         <name>JeniusApps.Nightingale.Data</name>
     </assembly>
     <members>
+        <member name="T:JeniusApps.Nightingale.Data.Extensions.AuthExtensions">
+            <summary>
+            Helper methods for manipulation
+            <see cref="T:JeniusApps.Nightingale.Data.Models.Authentication"/>.
+            </summary>
+        </member>
+        <member name="M:JeniusApps.Nightingale.Data.Extensions.AuthExtensions.GetProp(JeniusApps.Nightingale.Data.Models.Authentication,System.String)">
+            <summary>
+            Retrieves a string property from the property
+            dictionary of Authentication.
+            </summary>
+            <param name="auth">The <see cref="T:JeniusApps.Nightingale.Data.Models.Authentication"/> to inspect.</param>
+            <param name="key">The key of the property to retrieve.</param>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="M:JeniusApps.Nightingale.Data.Extensions.AuthExtensions.GetEnumProp``1(JeniusApps.Nightingale.Data.Models.Authentication,System.String)">
+            <summary>
+            Retrieves an enum property from the property
+            dictionary of Authentication.
+            </summary>
+            <param name="auth">The <see cref="T:JeniusApps.Nightingale.Data.Models.Authentication"/> to inspect.</param>
+            <param name="key">The key of the property to retrieve.</param>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="M:JeniusApps.Nightingale.Data.Extensions.AuthExtensions.SetProp(JeniusApps.Nightingale.Data.Models.Authentication,System.String,System.String)">
+            <summary>
+            Sets the given property.
+            </summary>
+            <param name="auth">The <see cref="T:JeniusApps.Nightingale.Data.Models.Authentication"/> to inspect.</param>
+            <param name="key">The property's name.</param>
+            <param name="value">The property's value.</param>
+        </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.AuthConstants">
+            <summary>
+            Constants used as keys
+            for <see cref="P:JeniusApps.Nightingale.Data.Models.Authentication.AuthProperties"/>.
+            </summary>
+        </member>
+        <member name="F:JeniusApps.Nightingale.Data.Models.AuthConstants.Props">
+            <summary>
+            A list of supported auth properties.
+            </summary>
+        </member>
         <member name="T:JeniusApps.Nightingale.Data.Models.Authentication">
             <summary>
             The authentication configuration
@@ -165,6 +208,12 @@
         <member name="P:JeniusApps.Nightingale.Data.Models.FormData.Value">
             <summary>
             Value of form data if it's not a file.
+            </summary>
+        </member>
+        <member name="P:JeniusApps.Nightingale.Data.Models.FormData.Enabled">
+            <summary>
+            Multi-purpose flag for whether or not
+            this form data is enabled.
             </summary>
         </member>
         <member name="P:JeniusApps.Nightingale.Data.Models.FormData.ContentType">
