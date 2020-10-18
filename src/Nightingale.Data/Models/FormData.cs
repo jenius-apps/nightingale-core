@@ -19,6 +19,12 @@ namespace JeniusApps.Nightingale.Data.Models
         public string Value { get; set; }
 
         /// <summary>
+        /// Multi-purpose flag for whether or not
+        /// this form data is enabled.
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
         /// HTTP content type defined by the user.
         /// </summary>
         public string ContentType { get; set; }

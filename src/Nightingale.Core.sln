@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nightingale.Core", "Nightingale.Core\Nightingale.Core.csproj", "{19A4229A-E3C0-4E8E-AC17-C7209B4FAD15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nightingale.Data", "Nightingale.Data\Nightingale.Data.csproj", "{01512EC6-BB7D-42FC-B4C3-0B9AF6375D8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nightingale.Data", "Nightingale.Data\Nightingale.Data.csproj", "{01512EC6-BB7D-42FC-B4C3-0B9AF6375D8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nightingale.Converters", "Nightingale.Converters\Nightingale.Converters.csproj", "{8B230AFD-02F2-4115-8B3E-284C86214738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{01512EC6-BB7D-42FC-B4C3-0B9AF6375D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01512EC6-BB7D-42FC-B4C3-0B9AF6375D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01512EC6-BB7D-42FC-B4C3-0B9AF6375D8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B230AFD-02F2-4115-8B3E-284C86214738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B230AFD-02F2-4115-8B3E-284C86214738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B230AFD-02F2-4115-8B3E-284C86214738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B230AFD-02F2-4115-8B3E-284C86214738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
