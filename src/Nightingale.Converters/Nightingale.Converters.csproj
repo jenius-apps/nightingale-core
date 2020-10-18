@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JeniusApps.Insomnia.NET" Version="0.0.3-preview" />
     <PackageReference Include="JeniusApps.Postman.NET" Version="0.2.4-preview" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
+    <PackageReference Include="MimeMapping" Version="1.0.1.30" />
   </ItemGroup>
 
   <ItemGroup>
