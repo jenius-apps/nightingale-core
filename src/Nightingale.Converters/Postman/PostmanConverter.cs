@@ -28,7 +28,8 @@ namespace Nightingale.Converters.Postman
             var collection = new Item
             {
                 Type = ItemType.Collection,
-                Name = postmanCollection.Info?.Name
+                Name = postmanCollection.Info?.Name,
+                Children = new List<Item>()
             };
 
             IList<Item> children = ConvertItems(postmanCollection.Items);
@@ -67,8 +68,18 @@ namespace Nightingale.Converters.Postman
                 }
                 else if (item.Items != null && item.Items.Length > 0)
                 {
-                    IList<Item> childCollections = ConvertItems(item.Items);
-                    list.AddRange(childCollections);
+                    Item nightingaleSubCollection = new Item
+                    {
+                        Type = ItemType.Collection,
+                        Children = new List<Item>(),
+                        Name = item.Name
+                    };
+                    IList<Item> nightingaleChildren = ConvertItems(item.Items);
+                    if (nightingaleChildren != null)
+                    {
+                        nightingaleSubCollection.Children.AddRange(nightingaleChildren);
+                    }
+                    list.Add(nightingaleSubCollection);
                 }
             }
 
@@ -219,7 +230,8 @@ namespace Nightingale.Converters.Postman
                 Type = ItemType.Request,
                 Url = new Url
                 {
-                    Base = postmanRequest.Url?.Raw
+                    Base = postmanRequest.Url?.Raw,
+                    Queries = new List<Parameter>()
                 },
                 Body = ConvertBody(postmanRequest.Body),
                 Method = postmanRequest.Method,
