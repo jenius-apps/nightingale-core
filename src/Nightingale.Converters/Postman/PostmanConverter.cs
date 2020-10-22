@@ -263,7 +263,7 @@ namespace Nightingale.Converters.Postman
                         Enabled = !query.Disabled,
                         Key = query.Key,
                         Value = query.Value,
-                        Type = ParamType.Header
+                        Type = ParamType.Parameter
                     });
                 }
             }
