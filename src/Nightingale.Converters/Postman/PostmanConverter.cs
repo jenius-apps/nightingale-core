@@ -28,7 +28,8 @@ namespace Nightingale.Converters.Postman
             var collection = new Item
             {
                 Type = ItemType.Collection,
-                Name = postmanCollection.Info?.Name
+                Name = postmanCollection.Info?.Name,
+                Children = new List<Item>()
             };
 
             IList<Item> children = ConvertItems(postmanCollection.Items);
@@ -67,8 +68,18 @@ namespace Nightingale.Converters.Postman
                 }
                 else if (item.Items != null && item.Items.Length > 0)
                 {
-                    IList<Item> childCollections = ConvertItems(item.Items);
-                    list.AddRange(childCollections);
+                    Item ngSubCollection = new Item
+                    {
+                        Type = ItemType.Collection,
+                        Children = new List<Item>(),
+                        Name = item.Name
+                    };
+                    IList<Item> ngChildren = ConvertItems(item.Items);
+                    if (ngChildren != null)
+                    {
+                        ngSubCollection.Children.AddRange(ngChildren);
+                    }
+                    list.Add(ngSubCollection);
                 }
             }
 
@@ -219,7 +230,8 @@ namespace Nightingale.Converters.Postman
                 Type = ItemType.Request,
                 Url = new Url
                 {
-                    Base = postmanRequest.Url?.Raw
+                    Base = postmanRequest.Url?.Raw,
+                    Queries = new List<Parameter>()
                 },
                 Body = ConvertBody(postmanRequest.Body),
                 Method = postmanRequest.Method,
@@ -251,7 +263,7 @@ namespace Nightingale.Converters.Postman
                         Enabled = !query.Disabled,
                         Key = query.Key,
                         Value = query.Value,
-                        Type = ParamType.Header
+                        Type = ParamType.Parameter
                     });
                 }
             }
