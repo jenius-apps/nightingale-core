@@ -68,18 +68,18 @@ namespace Nightingale.Converters.Postman
                 }
                 else if (item.Items != null && item.Items.Length > 0)
                 {
-                    Item nightingaleSubCollection = new Item
+                    Item ngSubCollection = new Item
                     {
                         Type = ItemType.Collection,
                         Children = new List<Item>(),
                         Name = item.Name
                     };
-                    IList<Item> nightingaleChildren = ConvertItems(item.Items);
-                    if (nightingaleChildren != null)
+                    IList<Item> ngChildren = ConvertItems(item.Items);
+                    if (ngChildren != null)
                     {
-                        nightingaleSubCollection.Children.AddRange(nightingaleChildren);
+                        ngSubCollection.Children.AddRange(ngChildren);
                     }
-                    list.Add(nightingaleSubCollection);
+                    list.Add(ngSubCollection);
                 }
             }
 

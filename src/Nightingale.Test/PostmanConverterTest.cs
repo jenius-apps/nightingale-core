@@ -60,11 +60,11 @@ namespace Nightingale.Test
 				],
 				""protocolProfileBehavior"": { }
 			}";
-			var postmanCollections = JsonConvert.DeserializeObject<Collection>(folderJson);
-			var nightingaleResult = _postmanConverter.ConvertCollection(postmanCollections);
-			var firstNightingaleItem = nightingaleResult.Children.First();
-            Assert.True(firstNightingaleItem.Name == "Test folder");
-			Assert.True(firstNightingaleItem.Children.Count == 1);
+			var ptCollections = JsonConvert.DeserializeObject<Collection>(folderJson);
+			var ngResult = _postmanConverter.ConvertCollection(ptCollections);
+			var firstNgItem = ngResult.Children.First();
+            Assert.True(firstNgItem.Name == "Test folder");
+			Assert.True(firstNgItem.Children.Count == 1);
         }
 		[Fact]
 		public void QueryParameterIsTheSame()
@@ -105,20 +105,20 @@ namespace Nightingale.Test
 				],
 				""protocolProfileBehavior"": { }
 			}";
-			var postmanCollections = JsonConvert.DeserializeObject<Collection>(folderJson);
-			var nightingaleResult = _postmanConverter.ConvertCollection(postmanCollections);
-			var postmanRequest = postmanCollections.Items.First();
-			var nightangleRequest = nightingaleResult.Children.First();
-			Assert.True(nightangleRequest.Type == ItemType.Request);
-			var postmanQuery = postmanRequest.Request.Url.Query;
-			var nightangleQueries = nightangleRequest.Url.Queries;
-			Assert.True(nightangleQueries.Count == postmanQuery.Count());
-			var count = nightangleQueries.Count;
+			var ptCollections = JsonConvert.DeserializeObject<Collection>(folderJson);
+			var ngResult = _postmanConverter.ConvertCollection(ptCollections);
+			var ptRequest = ptCollections.Items.First();
+			var ngRequest = ngResult.Children.First();
+			Assert.True(ngRequest.Type == ItemType.Request);
+			var ptQuery = ptRequest.Request.Url.Query;
+			var ngQueries = ngRequest.Url.Queries;
+			Assert.True(ngQueries.Count == ptQuery.Count());
+			var count = ngQueries.Count;
 			for (var i = 0; i < count; ++i)
             {
-				Assert.Equal(ParamType.Parameter, nightangleQueries[i].Type);
-				Assert.Equal(postmanQuery.ElementAt(i).Key, nightangleQueries[i].Key);
-				Assert.Equal(postmanQuery.ElementAt(i).Value, nightangleQueries[i].Value);
+				Assert.Equal(ParamType.Parameter, ngQueries[i].Type);
+				Assert.Equal(ptQuery.ElementAt(i).Key, ngQueries[i].Key);
+				Assert.Equal(ptQuery.ElementAt(i).Value, ngQueries[i].Value);
             }
 		}
 	}
