@@ -493,6 +493,11 @@
             Represents a chaining rule.
             </summary>
         </member>
+        <member name="T:JeniusApps.Nightingale.Data.Models.RequestBody">
+            <summary>
+            Object for a request body.
+            </summary>
+        </member>
         <member name="P:JeniusApps.Nightingale.Data.Models.RequestBody.BodyType">
             <summary>
             This item's type.

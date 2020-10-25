@@ -121,5 +121,57 @@ namespace Nightingale.Test
 				Assert.Equal(ptQuery.ElementAt(i).Value, ngQueries[i].Value);
             }
 		}
+
+		[Fact]
+		public void FormDataIsSuccessfullyImported()
+        {
+			var testJson = @"{
+				""info"": {
+					""_postman_id"": ""4f95d40b-14e5-4a11-ae65-2f90190b9836"",
+					""name"": ""2552"",
+					""schema"": ""https://schema.getpostman.com/json/collection/v2.1.0/collection.json""
+				},
+				""item"": [
+					{
+						""name"": ""555"",
+						""protocolProfileBehavior"": {
+							""disableBodyPruning"": true
+						},
+						""request"": {
+							""method"": ""GET"",
+							""header"": [],
+							""body"": {
+								""mode"": ""formdata"",
+								""formdata"": [
+									{
+										""key"": ""asdf"",
+										""contentType"": ""asdf"",
+										""description"": ""asdf"",
+										""type"": ""file"",
+										""src"": ""/C:/Users/kid_j/Downloads/2552.postman_collection.json""
+									}
+								]
+							},
+							""url"": {
+								""raw"": ""asdfasdf"",
+								""host"": [
+									""asdfasdf""
+								]
+							}
+						},
+						""response"": []
+					}
+				],
+				""protocolProfileBehavior"": {}
+			}";
+
+			var ptCollections = JsonConvert.DeserializeObject<Collection>(testJson);
+
+			// ensure no exception
+			var ngResult = _postmanConverter.ConvertCollection(ptCollections);
+			Assert.NotNull(ngResult.Children[0].Body.FormDataList);
+			Assert.Equal("asdf", ngResult.Children[0].Body.FormDataList[0].Key);
+			Assert.Equal(FormDataType.File, ngResult.Children[0].Body.FormDataList[0].FormDataType);
+		}
 	}
 }

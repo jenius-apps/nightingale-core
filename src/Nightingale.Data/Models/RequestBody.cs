@@ -2,6 +2,9 @@
 
 namespace JeniusApps.Nightingale.Data.Models
 {
+    /// <summary>
+    /// Object for a request body.
+    /// </summary>
     public class RequestBody
     {
         /// <summary>
@@ -27,12 +30,12 @@ namespace JeniusApps.Nightingale.Data.Models
         /// <summary>
         /// List of form encoded data.
         /// </summary>
-        public List<Parameter> FormEncodedData { get; set; }
+        public List<Parameter> FormEncodedData { get; set; } = new List<Parameter>();
 
         /// <summary>
         /// List of form data.
         /// </summary>
-        public List<FormData> FormDataList { get; set; }
+        public List<FormData> FormDataList { get; set; } = new List<FormData>();
 
         /// <summary>
         /// Path for file.
