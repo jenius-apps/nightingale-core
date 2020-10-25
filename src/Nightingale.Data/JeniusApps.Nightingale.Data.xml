@@ -36,6 +36,20 @@
             <param name="key">The property's name.</param>
             <param name="value">The property's value.</param>
         </member>
+        <member name="T:JeniusApps.Nightingale.Data.Extensions.ParameterExtensions">
+            <summary>
+            Extensions for <see cref="T:JeniusApps.Nightingale.Data.Models.Parameter"/>
+            or lists of them.
+            </summary>
+        </member>
+        <member name="M:JeniusApps.Nightingale.Data.Extensions.ParameterExtensions.GetActive(System.Collections.Generic.IList{JeniusApps.Nightingale.Data.Models.Parameter})">
+            <summary>
+            Returns the parameters which are enabled
+            and have a valid key.
+            </summary>
+            <param name="parameters">List of parameters to search through.</param>
+            <returns>The enabled parameters.</returns>
+        </member>
         <member name="T:JeniusApps.Nightingale.Data.Models.AuthConstants">
             <summary>
             Constants used as keys
