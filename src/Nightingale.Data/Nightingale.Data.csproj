@@ -17,7 +17,7 @@
     <Company>JeniusApps</Company>
 	<Copyright>© Jenius Apps</Copyright>
 	<PackageProjectUrl></PackageProjectUrl>
-	<Description>A .NET Standard library containing data transfer objects pertaining to Nightingale REST client and other Nightingale services.</Description>
+	<Description>A .NET Standard 2.0 library containing data transfer objects pertaining to Nightingale REST client and other Nightingale services.</Description>
 	<IsPackable>true</IsPackable>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
