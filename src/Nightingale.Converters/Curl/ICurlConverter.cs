@@ -1,6 +1,6 @@
 ﻿using JeniusApps.Nightingale.Data.Models;
 
-namespace Nightingale.Converters.Curl
+namespace JeniusApps.Nightingale.Converters.Curl
 {
     /// <summary>
     /// Interface for converting a curl command

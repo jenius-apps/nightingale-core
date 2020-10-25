@@ -5,13 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using PST = Postman.NET.Collections.Models;
 
-namespace Nightingale.Converters.Postman
+namespace JeniusApps.Nightingale.Converters.Postman
 {
     /// <summary>
     /// Class for converting Postman collections into Nightingale collections.
     /// </summary>
     public class PostmanConverter : IPostmanConverter
     {
+        /// <summary>
+        /// Scheme versions or json supported by this converter.
+        /// </summary>
         public static readonly string[] SupportedSchemas = new string[]
         {
             "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"

@@ -6,7 +6,7 @@ using System.Linq;
 using JeniusApps.Nightingale.Data.Extensions;
 using MimeMapping;
 
-namespace Nightingale.Converters.Insomnia
+namespace JeniusApps.Nightingale.Converters.Insomnia
 {
     /// <summary>
     /// Class for converting Insomnia Export v4 files.

@@ -1,7 +1,7 @@
 ﻿using JeniusApps.Nightingale.Data.Models;
 using Microsoft.OpenApi.Models;
 
-namespace Nightingale.Converters.Swagger
+namespace JeniusApps.Nightingale.Converters.Swagger
 {
     /// <summary>
     /// Interface for converting swagger/openapi documents

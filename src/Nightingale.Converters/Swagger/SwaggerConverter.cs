@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nightingale.Converters.Swagger
+namespace JeniusApps.Nightingale.Converters.Swagger
 {
     /// <summary>
     /// Class for converting swagger/openapi
@@ -11,6 +11,9 @@ namespace Nightingale.Converters.Swagger
     /// </summary>
     public class SwaggerConverter : ISwaggerConverter
     {
+        /// <summary>
+        /// Scheme versions or json supported by this converter.
+        /// </summary>
         public static readonly string[] SupportedSchemas = new string[]
         {
             "3.0.0"

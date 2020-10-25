@@ -2,7 +2,7 @@
 using JeniusApps.Nightingale.Data.Models;
 using System.Collections.Generic;
 
-namespace Nightingale.Converters.Insomnia
+namespace JeniusApps.Nightingale.Converters.Insomnia
 {
     /// <summary>
     /// Interface for converting an insomnia export file

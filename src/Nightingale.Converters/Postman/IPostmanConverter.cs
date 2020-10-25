@@ -1,7 +1,7 @@
 ﻿using JeniusApps.Nightingale.Data.Models;
 using PST = Postman.NET.Collections.Models;
 
-namespace Nightingale.Converters.Postman
+namespace JeniusApps.Nightingale.Converters.Postman
 {
     /// <summary>
     /// Interface for converting postman collection

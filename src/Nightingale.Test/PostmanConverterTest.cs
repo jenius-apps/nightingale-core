@@ -1,6 +1,6 @@
 using JeniusApps.Nightingale.Data.Models;
 using Newtonsoft.Json;
-using Nightingale.Converters.Postman;
+using JeniusApps.Nightingale.Converters.Postman;
 using Postman.NET.Collections.Models;
 using System;
 using System.Linq;

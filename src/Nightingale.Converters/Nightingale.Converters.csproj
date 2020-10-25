@@ -1,7 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+	  <RootNamespace>JeniusApps.Nightingale.Converters</RootNamespace>
+	  <PackageId>JeniusApps.Nightingale.Converters</PackageId>
+	  <AssemblyName>JeniusApps.Nightingale.Converters</AssemblyName>
+	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Version>4.0.4-preview</Version>
+	  <PackageTags>restapi,nightingale,webapi,jeniusapps,ncf,http,httpclient</PackageTags>
+	  <RepositoryUrl>https://github.com/jenius-apps/nightingale-core</RepositoryUrl>
+	  <Authors>Daniel Paulino</Authors>
+	  <Company>JeniusApps</Company>
+	  <Copyright>© Jenius Apps</Copyright>
+	  <PackageProjectUrl></PackageProjectUrl>
+	  <Description>A .NET Standard 2.0 library that converts files from other REST clients into Nightingale files.</Description>
+	  <IsPackable>true</IsPackable>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	  <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +33,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nightingale.Data\Nightingale.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
