@@ -10,15 +10,12 @@ namespace Nightingale.Test
 {
     public class PostmanConverterTest
     {
-		private PostmanConverter _postmanConverter;
-		public PostmanConverterTest()
-        {
-			_postmanConverter = new PostmanConverter();
-		}
         [Fact]
         public void FolderIsRetained()
         {
-            var folderJson = @"{
+			var converter = new PostmanConverter();
+
+			var folderJson = @"{
 				""info"": {
 					""_postman_id"": ""d3232d7e-a773-4953-8b80-0b5aa3fd79a5"",
 					""name"": ""Test Collection"",
@@ -61,14 +58,16 @@ namespace Nightingale.Test
 				""protocolProfileBehavior"": { }
 			}";
 			var ptCollections = JsonConvert.DeserializeObject<Collection>(folderJson);
-			var ngResult = _postmanConverter.ConvertCollection(ptCollections);
+			var ngResult = converter.ConvertCollection(ptCollections);
 			var firstNgItem = ngResult.Children.First();
             Assert.True(firstNgItem.Name == "Test folder");
 			Assert.True(firstNgItem.Children.Count == 1);
         }
+
 		[Fact]
 		public void QueryParameterIsTheSame()
 		{
+			var converter = new PostmanConverter();
 			var folderJson = @"{
 				""info"": {
 					""_postman_id"": ""d3232d7e-a773-4953-8b80-0b5aa3fd79a5"",
@@ -106,7 +105,7 @@ namespace Nightingale.Test
 				""protocolProfileBehavior"": { }
 			}";
 			var ptCollections = JsonConvert.DeserializeObject<Collection>(folderJson);
-			var ngResult = _postmanConverter.ConvertCollection(ptCollections);
+			var ngResult = converter.ConvertCollection(ptCollections);
 			var ptRequest = ptCollections.Items.First();
 			var ngRequest = ngResult.Children.First();
 			Assert.True(ngRequest.Type == ItemType.Request);
@@ -125,6 +124,7 @@ namespace Nightingale.Test
 		[Fact]
 		public void FormDataIsSuccessfullyImported()
         {
+			var converter = new PostmanConverter();
 			var testJson = @"{
 				""info"": {
 					""_postman_id"": ""4f95d40b-14e5-4a11-ae65-2f90190b9836"",
@@ -168,10 +168,56 @@ namespace Nightingale.Test
 			var ptCollections = JsonConvert.DeserializeObject<Collection>(testJson);
 
 			// ensure no exception
-			var ngResult = _postmanConverter.ConvertCollection(ptCollections);
+			var ngResult = converter.ConvertCollection(ptCollections);
 			Assert.NotNull(ngResult.Children[0].Body.FormDataList);
 			Assert.Equal("asdf", ngResult.Children[0].Body.FormDataList[0].Key);
 			Assert.Equal(FormDataType.File, ngResult.Children[0].Body.FormDataList[0].FormDataType);
+		}
+
+		[Fact]
+		public void NoRedundantQueries()
+        {
+			var converter = new PostmanConverter();
+			var testJson = @"{
+				""info"": {
+					""_postman_id"": ""d3232d7e-a773-4953-8b80-0b5aa3fd79a5"",
+					""name"": ""Test Collection"",
+					""schema"": ""https://schema.getpostman.com/json/collection/v2.1.0/collection.json""
+				},
+				""item"": [
+					{
+						""name"": ""Test request"",
+						""request"": {
+							""method"": ""GET"",
+							""header"": [],
+							""url"": {
+								""raw"": ""http://localhost:3001?param1=a&param2=b"",
+								""protocol"": ""http"",
+								""host"": [
+									""localhost""
+								],
+								""port"": ""3001"",
+								""query"": [
+									{
+										""key"": ""param1"",
+										""value"": ""a""
+									},
+									{
+										""key"": ""param2"",
+										""value"": ""b""
+									}
+								]
+							}
+						},
+						""response"": []
+					}
+				],
+				""protocolProfileBehavior"": {}
+			}";
+
+			var ptcollection = JsonConvert.DeserializeObject<Collection>(testJson);
+			var ngItem = converter.ConvertCollection(ptcollection);
+			Assert.Equal("http://localhost:3001/", ngItem.Children.First().Url.Base);
 		}
 	}
 }

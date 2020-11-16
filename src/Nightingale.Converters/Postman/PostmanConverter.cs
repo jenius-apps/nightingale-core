@@ -228,12 +228,16 @@ namespace JeniusApps.Nightingale.Converters.Postman
                 return null;
             }
 
+            var baseUrl = Uri.IsWellFormedUriString(postmanRequest.Url?.Raw, UriKind.Absolute)
+                ? new Uri(postmanRequest.Url.Raw).GetLeftPart(UriPartial.Path)
+                : postmanRequest.Url?.Raw;
+
             var result = new Item
             {
                 Type = ItemType.Request,
                 Url = new Url
                 {
-                    Base = postmanRequest.Url?.Raw,
+                    Base = baseUrl,
                     Queries = new List<Parameter>()
                 },
                 Body = ConvertBody(postmanRequest.Body),
