@@ -21,6 +21,7 @@
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	  <PackageIcon>logo.png</PackageIcon>
+	  <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
