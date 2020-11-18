@@ -1,4 +1,5 @@
 ﻿using JeniusApps.Nightingale.Converters.Curl;
+using JeniusApps.Nightingale.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -72,6 +73,44 @@ namespace Nightingale.Test
 
             var result = new CurlConverter().Convert(input);
             Assert.Equal("https://appcenter.ms/api/v0.1/apps/jenius_apps/ambie/analytics/languages/?start=2020-10-18T06%3A08%3A04.735Z&$top=7", result.Url.Base);
+        }
+
+        [Fact]
+        public void DoubleQuoteTest()
+        {
+            var input = @"curl -X PUT ""https://api.cloudflare.com/client/v4/user/tokens/ed17574386854bf78a67040be0a770b0"" \
+-H ""Authorization: Bearer 8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"" \
+-H ""Content-Type: application/json"" \
+--data '{""id"":""ed17574386854bf78a67040be0a770b0"",""name"":""readonly token"",""status"":""active"",""issued_on"":""2018-07-01T05:20:00Z"",""modified_on"":""2018-07-02T05:20:00Z"",""not_before"":""2018-07-01T05:20:00Z"",""expires_on"":""2020-01-01T00:00:00Z"",""policies"":[{""id"":""f267e341f3dd4697bd3b9f71dd96247f"",""effect"":""allow"",""resources"":{""com.cloudflare.api.account.zone.eb78d65290b24279ba6f44721b3ea3c4"":""*"",""com.cloudflare.api.account.zone.22b1de5f1c0e4b3ea97bb1e963b06a43"":""*""},""permission_groups"":[{""id"":""c8fed203ed3043cba015a93ad1616f1f"",""name"":""Zone Read""},{""id"":""82e64a83756745bbbb1c9c2701bf816b"",""name"":""DNS Read""}]}],""condition"":{""request.ip"":{""in"":[""199.27.128.0/21"",""2400:cb00::/32""],""not_in"":[""199.27.128.0/21"",""2400:cb00::/32""]}}}'";
+
+            var result = new CurlConverter().Convert(input);
+            Assert.Equal("https://api.cloudflare.com/client/v4/user/tokens/ed17574386854bf78a67040be0a770b0", result.Url.Base);
+        }
+
+        [Fact]
+        public void DataJsonTest()
+        {
+            var input = @"curl -X PUT ""https://api.cloudflare.com/client/v4/user/tokens/ed17574386854bf78a67040be0a770b0"" \
+     -H ""Authorization: Bearer 8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"" \
+     -H ""Content-Type: application/json"" \
+     --data '{""id"":""ed17574386854bf78a67040be0a770b0"",""name"":""readonly token"",""status"":""active"",""issued_on"":""2018-07-01T05:20:00Z"",""modified_on"":""2018-07-02T05:20:00Z"",""not_before"":""2018-07-01T05:20:00Z"",""expires_on"":""2020-01-01T00:00:00Z"",""policies"":[{""id"":""f267e341f3dd4697bd3b9f71dd96247f"",""effect"":""allow"",""resources"":{""com.cloudflare.api.account.zone.eb78d65290b24279ba6f44721b3ea3c4"":""*"",""com.cloudflare.api.account.zone.22b1de5f1c0e4b3ea97bb1e963b06a43"":""*""},""permission_groups"":[{""id"":""c8fed203ed3043cba015a93ad1616f1f"",""name"":""Zone Read""},{""id"":""82e64a83756745bbbb1c9c2701bf816b"",""name"":""DNS Read""}]}],""condition"":{""request.ip"":{""in"":[""199.27.128.0/21"",""2400:cb00::/32""],""not_in"":[""199.27.128.0/21"",""2400:cb00::/32""]}}}'";
+
+            var result = new CurlConverter().Convert(input);
+            Assert.Equal(RequestBodyType.Json, result.Body.BodyType);
+            Assert.NotNull(result.Body.JsonBody);
+        }
+
+        [Fact]
+        public void DataXmlTest()
+        {
+            var input = @"curl -X PUT ""https://api.cloudflare.com/client/v4/user/tokens/ed17574386854bf78a67040be0a770b0"" \
+     -H ""Authorization: Bearer 8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"" \
+     -H ""Content-Type: application/xml"" \
+     --data '{""id"":""ed17574386854bf78a67040be0a770b0"",""name"":""readonly token"",""status"":""active"",""issued_on"":""2018-07-01T05:20:00Z"",""modified_on"":""2018-07-02T05:20:00Z"",""not_before"":""2018-07-01T05:20:00Z"",""expires_on"":""2020-01-01T00:00:00Z"",""policies"":[{""id"":""f267e341f3dd4697bd3b9f71dd96247f"",""effect"":""allow"",""resources"":{""com.cloudflare.api.account.zone.eb78d65290b24279ba6f44721b3ea3c4"":""*"",""com.cloudflare.api.account.zone.22b1de5f1c0e4b3ea97bb1e963b06a43"":""*""},""permission_groups"":[{""id"":""c8fed203ed3043cba015a93ad1616f1f"",""name"":""Zone Read""},{""id"":""82e64a83756745bbbb1c9c2701bf816b"",""name"":""DNS Read""}]}],""condition"":{""request.ip"":{""in"":[""199.27.128.0/21"",""2400:cb00::/32""],""not_in"":[""199.27.128.0/21"",""2400:cb00::/32""]}}}'";
+
+            var result = new CurlConverter().Convert(input);
+            Assert.Equal(RequestBodyType.Xml, result.Body.BodyType);
+            Assert.NotNull(result.Body.XmlBody);
         }
     }
 }

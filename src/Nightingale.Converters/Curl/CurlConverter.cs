@@ -1,6 +1,7 @@
 ﻿using JeniusApps.Nightingale.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace JeniusApps.Nightingale.Converters.Curl
@@ -27,6 +28,7 @@ namespace JeniusApps.Nightingale.Converters.Curl
             };
 
             var args = ParseArguments(curlString);
+            string data = "";
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -55,13 +57,39 @@ namespace JeniusApps.Nightingale.Converters.Curl
                 }
                 else if (current == "-d" || current == "--data")
                 {
-                    result.Body.BodyType = RequestBodyType.Text;
-                    result.Body.TextBody = args[i + 1];
+                    data = args[i + 1];
                     i++;
                 }
                 else if (Uri.IsWellFormedUriString(current, UriKind.Absolute))
                 {
                     result.Url.Base = args[i];
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(data))
+            {
+                // try to get the content type
+                var contentType = result.Headers
+                    .Where(x => x.Key.ToLower() == "content-type")
+                    .FirstOrDefault()?.Value;
+
+                if (!string.IsNullOrWhiteSpace(contentType))
+                {
+                    if (contentType.Contains("json"))
+                    {
+                        result.Body.BodyType = RequestBodyType.Json;
+                        result.Body.JsonBody = data;
+                    }
+                    else if (contentType.Contains("xml"))
+                    {
+                        result.Body.BodyType = RequestBodyType.Xml;
+                        result.Body.XmlBody = data;
+                    }
+                    else
+                    {
+                        result.Body.BodyType = RequestBodyType.Text;
+                        result.Body.TextBody = data;
+                    }
                 }
             }
 
@@ -78,20 +106,23 @@ namespace JeniusApps.Nightingale.Converters.Curl
 
             // Ref: https://stackoverflow.com/a/298968
             char[] parmChars = replacement.ToCharArray();
-            bool inQuote = false;
+            bool inSingleQuote = false;
+            bool inDoubleQuote = false;
             for (int index = 0; index < parmChars.Length; index++)
             {
-                if (parmChars[index] == '\'')
+                if (parmChars[index] == '"' && !inSingleQuote)
+                {
+                    inDoubleQuote = !inDoubleQuote;
+                    parmChars[index] = '\n';
+                }
+                if (parmChars[index] == '\'' && !inDoubleQuote)
+                {
+                    inSingleQuote = !inSingleQuote;
+                    parmChars[index] = '\n';
+                }
+                if (!inSingleQuote && !inDoubleQuote && char.IsWhiteSpace(parmChars[index]))
                 {
                     parmChars[index] = '\n';
-                    inQuote = !inQuote;
-                }
-                if (!inQuote)
-                {
-                    if (char.IsWhiteSpace(parmChars[index]) )
-                    {
-                        parmChars[index] = '\n';
-                    }
                 }
             }
             return (new string(parmChars)).Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);

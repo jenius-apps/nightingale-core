@@ -7,7 +7,7 @@
 	  <AssemblyName>JeniusApps.Nightingale.Converters</AssemblyName>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Version>4.0.6-preview</Version>
+	  <Version>4.1.0-preview</Version>
 	  <PackageTags>restapi,nightingale,webapi,jeniusapps,ncf,http,httpclient</PackageTags>
 	  <RepositoryUrl>https://github.com/jenius-apps/nightingale-core</RepositoryUrl>
 	  <Authors>Daniel Paulino</Authors>
@@ -22,6 +22,7 @@
 	  <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	  <PackageIcon>logo.png</PackageIcon>
 	  <LangVersion>9.0</LangVersion>
+	  <PackageReleaseNotes>- Added curl converter</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
