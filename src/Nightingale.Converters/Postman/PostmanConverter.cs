@@ -21,7 +21,7 @@ namespace JeniusApps.Nightingale.Converters.Postman
         };
 
         /// <inheritdoc/>
-        public Item ConvertCollection(PST.Collection postmanCollection)
+        public Item? ConvertCollection(PST.Collection postmanCollection)
         {
             if (postmanCollection == null)
             {
@@ -61,7 +61,7 @@ namespace JeniusApps.Nightingale.Converters.Postman
                 if (item.Request != null)
                 {
                     // item is a request
-                    Item request = ConvertRequest(item.Request);
+                    Item? request = ConvertRequest(item.Request);
 
                     if (request != null)
                     {
@@ -221,16 +221,17 @@ namespace JeniusApps.Nightingale.Converters.Postman
             return result;
         }
 
-        private Item ConvertRequest(PST.Request postmanRequest)
+        private Item? ConvertRequest(PST.Request postmanRequest)
         {
             if (postmanRequest == null)
             {
                 return null;
             }
 
-            var baseUrl = Uri.IsWellFormedUriString(postmanRequest.Url?.Raw, UriKind.Absolute)
-                ? new Uri(postmanRequest.Url.Raw).GetLeftPart(UriPartial.Path)
-                : postmanRequest.Url?.Raw;
+            var rawUrl = postmanRequest.Url?.Raw;
+            var baseUrl = Uri.IsWellFormedUriString(rawUrl, UriKind.Absolute)
+                ? new Uri(rawUrl).GetLeftPart(UriPartial.Path)
+                : rawUrl;
 
             var result = new Item
             {
@@ -242,7 +243,11 @@ namespace JeniusApps.Nightingale.Converters.Postman
                 },
                 Body = ConvertBody(postmanRequest.Body),
                 Method = postmanRequest.Method,
-                Auth = ConvertAuth(postmanRequest.Auth)
+                Auth = ConvertAuth(postmanRequest.Auth),
+                Headers = new List<Parameter>(),
+                Properties = new Dictionary<string, object>(),
+                MockData = new MockData(),
+                Children = new List<Item>()
             };
 
             // Headers

@@ -15,6 +15,6 @@ namespace JeniusApps.Nightingale.Converters.Postman
         /// </summary>
         /// <param name="postmanCollection">The <see cref="PST.Collection"/> to convert.</param>
         /// <returns>An <see cref="Item"/>.</returns>
-        Item ConvertCollection(PST.Collection postmanCollection);
+        Item? ConvertCollection(PST.Collection postmanCollection);
     }
 }

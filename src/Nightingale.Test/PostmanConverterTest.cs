@@ -219,5 +219,62 @@ namespace Nightingale.Test
 			var ngItem = converter.ConvertCollection(ptcollection);
 			Assert.Equal("http://localhost:3001/", ngItem.Children.First().Url.Base);
 		}
+
+		/// <summary>
+		/// Test to make sure no exceptions
+		/// occur when adding headers.
+		/// </summary>
+		[Fact]
+		public void AddHeadersTest()
+        {
+			var converter = new PostmanConverter();
+			var testJson = @"{
+				""info"": {
+					""_postman_id"": ""d3232d7e-a773-4953-8b80-0b5aa3fd79a5"",
+					""name"": ""Test Collection"",
+					""schema"": ""https://schema.getpostman.com/json/collection/v2.1.0/collection.json""
+				},
+				""item"": [
+					{
+						""name"": ""Test request"",
+						""request"": {
+							""method"": ""GET"",
+							""header"": [
+								{
+									""key"": ""Content-Type"",
+									""name"": ""Content-Type"",
+									""value"": ""application/json"",
+									""type"": ""text""
+								}
+							],
+							""url"": {
+								""raw"": ""http://localhost:3001?param1=a&param2=b"",
+								""protocol"": ""http"",
+								""host"": [
+									""localhost""
+								],
+								""port"": ""3001"",
+								""query"": [
+									{
+										""key"": ""param1"",
+										""value"": ""a""
+									},
+									{
+										""key"": ""param2"",
+										""value"": ""b""
+									}
+								]
+							}
+						},
+						""response"": []
+					}
+				],
+				""protocolProfileBehavior"": {}
+			}";
+
+			var ptcollection = JsonConvert.DeserializeObject<Collection>(testJson);
+			var ngItem = converter.ConvertCollection(ptcollection);
+			Assert.Equal("application/json", ngItem.Children[0].Headers[0].Value);
+		}
 	}
 }
