@@ -3,6 +3,7 @@ using JeniusApps.Nightingale.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static JeniusApps.Nightingale.Converters.Postman.AuthExtensions;
 using PST = Postman.NET.Collections.Models;
 
 namespace JeniusApps.Nightingale.Converters.Postman
@@ -281,6 +282,281 @@ namespace JeniusApps.Nightingale.Converters.Postman
             }
 
             return result;
+        }
+
+        /// <inheritdoc/>
+        public PST.Collection? ConvertToCollection(Item item)
+        {
+            if (item == null) return null;
+            PST.Collection pgCollection = new PST.Collection();
+            if (item.Type == ItemType.Collection)
+            {
+                pgCollection.Info = new PST.Info {  Name = item.Name };
+                var children = ConvertToItems(item.Children);
+                if (children != null)
+                {
+                    pgCollection.Items = children;
+                }
+            }
+            else if (item.Type == ItemType.Request)
+            {
+                // TODO: Maybe use something like "Exported from Nightinagle" instead? 
+                pgCollection.Info = new PST.Info { Name = "Untitled Collection" };
+                var pgItem = ConvertRequestToItem(item);
+                if (pgItem == null)
+                {
+                    // Failed to ouput the only item. Return early.
+                    // TODO: Logging? Microsoft.Extensions.Logging?
+                    return null;
+                }
+                pgCollection.Items = new PST.Item[] { pgItem };
+            }
+            return pgCollection;
+        }
+
+        private PST.Item[]? ConvertToItems(List<Item> items)
+        {
+            var itemCount = items.Count;
+            if (items == null || itemCount == 0) return new PST.Item[] { };
+            var pgItems = new List<PST.Item>();
+            foreach (var item in items)
+            {
+                if (item.Type == ItemType.Request)
+                {
+                    var request = ConvertRequestToItem(item);
+                    if (request != null)
+                    {
+                        pgItems.Add(request);
+                    }
+                }
+                else if (item.Type == ItemType.Collection)
+                {
+                    var pgItem = new PST.Item { Name = item.Name };
+                    var children = ConvertToItems(item.Children);
+                    if (children != null)
+                    {
+                        pgItem.Items = children;
+                    }
+                    pgItems.Add(pgItem);
+                }
+            }
+            return pgItems.ToArray();
+        }
+
+        private PST.Item? ConvertRequestToItem(Item item)
+        {
+            if (item.Type != ItemType.Request) throw new ArgumentException($"ItemType must be Request, got {item.Type} instead.");
+            var rawUrl = item.Url.ToString();
+            var uri = Uri.IsWellFormedUriString(rawUrl, UriKind.Absolute)
+                ? new Uri(rawUrl)
+                : null;
+            string? scheme = null;
+            string? host = null;
+            if (uri != null)
+            {
+                scheme = uri.Scheme;
+                host = uri.Host;
+            }
+            var pgQueries = new List<PST.Query>();
+            foreach (var param in item.Url.Queries)
+            {
+                pgQueries.Add(new PST.Query
+                {
+                    Disabled = !param.Enabled,
+                    Key = param.Key,
+                    Value = param.Value
+                });
+            }
+            // TODO: Confirm what to do with Variable.
+            var pgUrl = new PST.Url
+            {
+                Raw = rawUrl,
+                Protocol = scheme,
+                Host = host == null ? null : new string[] {host},
+                Path = uri?.Segments,
+                Query = pgQueries.ToArray(),
+            };
+            var pgHeaders = new List<PST.Parameter>();
+            foreach (var header in item.Headers)
+            {
+                // TODO: Confirm what Type should be here.
+                pgHeaders.Add(new PST.Parameter
+                {
+                    Key = header.Key,
+                    Value = header.Value,
+                    Disabled = !header.Enabled,
+                    Type = "header"
+                });
+            }
+            return new PST.Item
+            {
+                Name = item.Name,
+                Request = new PST.Request
+                {
+                    Method = item.Method,
+                    Auth = item.Auth == null ? null : ConvertToAuth(item.Auth),
+                    Body = item.Body == null ? null : ConvertToBody(item.Body),
+                    Url = pgUrl,
+                    Header = pgHeaders.ToArray()
+                }
+            };
+        }
+
+        private PST.Body ConvertToBody(RequestBody body)
+        {
+            var pgBody = new PST.Body();
+            if (body.BodyType == RequestBodyType.Json)
+            {
+                pgBody.Mode = "raw";
+                pgBody.Options = new PST.BodyOptions
+                {
+                    Raw = new PST.RawOptions
+                    {
+                        Language = "json"
+                    }
+                };
+            } 
+            else if (body.BodyType == RequestBodyType.Xml)
+            {
+                pgBody.Mode = "raw";
+                pgBody.Options = new PST.BodyOptions
+                {
+                    Raw = new PST.RawOptions
+                    {
+                        Language = "xml"
+                    }
+                };
+            }
+            else if (body.BodyType == RequestBodyType.Text)
+            {
+                pgBody.Mode = "raw";
+            }
+            else if (body.BodyType == RequestBodyType.FormEncoded && body.FormEncodedData != null)
+            {
+                pgBody.Mode = "urlencoded";
+                var urlEncodedData = new List<PST.Parameter>();
+                foreach (var datum in body.FormEncodedData)
+                {
+                    urlEncodedData.Add(new PST.Parameter
+                    {
+                        Key = datum.Key,
+                        Value = datum.Value
+                    });
+                }
+                pgBody.Urlencoded = urlEncodedData.ToArray();
+            }
+            else if (body.BodyType == RequestBodyType.FormData && body.FormDataList != null)
+            {
+                pgBody.Mode = "formdata";
+                var formData = new List<PST.FormData>();
+                foreach (var datum in body.FormDataList)
+                {
+                    var pgForm = new PST.FormData
+                    {
+                        ContentType = datum.ContentType,
+                        Key = datum.Key,
+                        Value = datum.Value,
+                        Disabled = !datum.Enabled
+                    };
+                    if (datum.FormDataType == FormDataType.Text)
+                    {
+                        pgForm.Type = "text";
+                    }
+                    else if (datum.FormDataType == FormDataType.File)
+                    {
+                        pgForm.Type = "file";
+                    }
+                    var pgFiles = new List<string>();
+                    foreach (var file in datum.FilePaths)
+                    {
+                        if (string.IsNullOrWhiteSpace(file))
+                        {
+                            continue;
+                        }
+                        pgFiles.Add(file.TrimStart('/'));
+                    }
+                    pgForm.Src = pgFiles;
+                }
+                pgBody.Formdata = formData.ToArray();
+            }
+            else if (body.BodyType == RequestBodyType.Binary)
+            {
+                pgBody.Mode = "file";
+                pgBody.File = new PST.FileAttachment
+                {
+                    Src = body.BinaryFilePath.TrimStart('/')
+                };
+            }
+            return pgBody;
+        }
+
+        private PST.Auth ConvertToAuth(Authentication auth)
+        {
+            var pgAuth = new PST.Auth
+            {
+                Basic = auth.ConvertToParameter(new AuthMapping[]
+                {
+                    new AuthMapping(AuthConstants.BasicPassword, "password"),
+                    new AuthMapping(AuthConstants.BasicUsername, "username")
+                }),
+                Oauth1 = auth.ConvertToParameter(new AuthMapping[]
+                {
+                    new AuthMapping(AuthConstants.OAuth1ConsumerKey, "consumerKey"),
+                    new AuthMapping(AuthConstants.OAuth1ConsumerSecret, "consumerSecret"),
+                    new AuthMapping(AuthConstants.OAuth1AccessToken, "token"),
+                    new AuthMapping(AuthConstants.OAuth1TokenSecret, "tokenSecret")
+                }),
+                Oauth2 = auth.ConvertToParameter(new AuthMapping[]
+                {
+                    new AuthMapping(AuthConstants.OAuth2AccessToken, "accessToken")
+                }),
+                Bearer = auth.ConvertToParameter(new AuthMapping[]
+                {
+                    new AuthMapping(AuthConstants.BearerToken, "token")
+                }),
+                Digest = auth.ConvertToParameter(new AuthMapping[]
+                {
+                    new AuthMapping(AuthConstants.DigestPassword, "password"),
+                    new AuthMapping(AuthConstants.DigestUsername, "username")
+                })
+            };
+            if (Enum.IsDefined(typeof(PST.PostmanAuthType), (int)auth.AuthType))
+            {
+                pgAuth.Type = ((PST.PostmanAuthType) auth.AuthType).ToString();
+            }
+            return pgAuth;
+        }
+    }
+
+    internal static class AuthExtensions
+    {
+        internal class AuthMapping
+        {
+            internal AuthMapping(string name, string pgName)
+            {
+                Name = name;
+                PgName = pgName;
+            }
+            public string Name { get; }
+            public string PgName { get; }
+        }
+
+        internal static PST.Parameter[]? ConvertToParameter(this Authentication auth, AuthMapping[] propNames)
+        {
+            var props = new List<PST.Parameter>();
+            foreach (var name in propNames)
+            {
+                var prop = auth.GetProp(name.Name);
+                if (!string.IsNullOrWhiteSpace(prop))
+                {
+                    props.Add(new PST.Parameter
+                    {
+                        Key = name.PgName,
+                        Value = prop
+                    });
+                }
+            }
+            return props.ToArray();
         }
     }
 }
