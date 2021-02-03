@@ -3,6 +3,7 @@ using JeniusApps.Nightingale.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Xunit;
 
 namespace Nightingale.Test
@@ -132,6 +133,14 @@ namespace Nightingale.Test
 
             var result = new CurlConverter().Convert(input);
             Assert.Equal("GET", result.Method);
+        }
+
+        [Fact]
+        public void UserAgentTest()
+        {
+            var input = @"curl https://api.discogs.com/releases/249504 --user-agent ""FooBarApp / 3.0""";
+            var result = new CurlConverter().Convert(input);
+            Assert.Contains(result.Headers, x => x.Key == "User-Agent" && x.Value == "FooBarApp / 3.0");
         }
     }
 }

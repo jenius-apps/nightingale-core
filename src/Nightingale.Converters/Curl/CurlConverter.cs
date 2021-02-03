@@ -62,6 +62,18 @@ namespace JeniusApps.Nightingale.Converters.Curl
                     data = args[i + 1];
                     i++;
                 }
+                else if (current == "--user-agent")
+                {
+                    var userAgentValue = args[i + 1];
+                    result.Headers.Add(new Parameter
+                    {
+                        Enabled = true,
+                        Key = "User-Agent",
+                        Value = userAgentValue,
+                        Type = ParamType.Header
+                    });
+                    i++;
+                }
                 else if (Uri.IsWellFormedUriString(current, UriKind.Absolute))
                 {
                     result.Url.Base = args[i];
