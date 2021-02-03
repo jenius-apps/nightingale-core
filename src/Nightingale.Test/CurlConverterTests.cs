@@ -124,5 +124,14 @@ namespace Nightingale.Test
             var result = new CurlConverter().Convert(input);
             Assert.Equal("PUT", result.Method);
         }
+
+        [Fact]
+        public void DefaultMethodTest()
+        {
+            var input = @"curl https://api.discogs.com/releases/249504 --user-agent ""FooBarApp / 3.0""";
+
+            var result = new CurlConverter().Convert(input);
+            Assert.Equal("GET", result.Method);
+        }
     }
 }

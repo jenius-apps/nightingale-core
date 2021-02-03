@@ -25,7 +25,8 @@ namespace JeniusApps.Nightingale.Converters.Curl
                 Headers = new List<Parameter>(),
                 Url = new Url(),
                 Body = new RequestBody(),
-                Type = ItemType.Request
+                Type = ItemType.Request,
+                Method = "GET"
             };
 
             var args = ParseArguments(curlString);
