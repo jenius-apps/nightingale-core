@@ -161,6 +161,10 @@ namespace JeniusApps.Nightingale.Converters.OData
         }
         private Item GetFunctionUrls(IEdmFunctionImport edmEntity)
         {
+            if(edmEntity.Function.IsBound){
+                // currently we don't support bounded funcitons!
+                return null;
+            }
             var functionParameters = string.Join(",", edmEntity.Function.Parameters.Select(d =>
              {
                  return $"{d.Name} = {{{{{d.Name}}}}}";
@@ -178,6 +182,10 @@ namespace JeniusApps.Nightingale.Converters.OData
         }
         private Item GetActionUrls(IEdmActionImport edmEntity)
         {
+            if(edmEntity.Action.IsBound){
+                // currently we don't support bounded actions!
+                return null;
+            }
             var functionParameters = string.Join(",", edmEntity.Action.Parameters.Select(d =>
             {
                 return $"{d.Name} = {{{{{d.Name}}}}}";
