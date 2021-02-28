@@ -61,10 +61,18 @@ namespace JeniusApps.Nightingale.Converters.OData
                         yield return GetEntityUrls((IEdmEntitySet)entity);
                         break;
                     case EdmContainerElementKind.ActionImport:
-                        yield return GetActionUrls((IEdmActionImport)entity);
+                        var actionsResult = GetActionUrls((IEdmActionImport)entity);
+                        if(actionsResult == null){
+                            break;
+                        }
+                        yield return actionsResult;
                         break;
                     case EdmContainerElementKind.FunctionImport:
-                        yield return GetFunctionUrls((IEdmFunctionImport)entity);
+                        var functionsResult = GetFunctionUrls((IEdmFunctionImport)entity);
+                        if(functionsResult == null){
+                            break;
+                        }
+                        yield return functionsResult;
                         break;
                     case EdmContainerElementKind.Singleton:
                         yield return GetSingeltoneUrls((IEdmSingleton)entity);
@@ -159,7 +167,7 @@ namespace JeniusApps.Nightingale.Converters.OData
             };
             return result;
         }
-        private Item GetFunctionUrls(IEdmFunctionImport edmEntity)
+        private Item? GetFunctionUrls(IEdmFunctionImport edmEntity)
         {
             if(edmEntity.Function.IsBound){
                 // currently we don't support bounded funcitons!
@@ -180,7 +188,7 @@ namespace JeniusApps.Nightingale.Converters.OData
                 }
             };
         }
-        private Item GetActionUrls(IEdmActionImport edmEntity)
+        private Item? GetActionUrls(IEdmActionImport edmEntity)
         {
             if(edmEntity.Action.IsBound){
                 // currently we don't support bounded actions!
