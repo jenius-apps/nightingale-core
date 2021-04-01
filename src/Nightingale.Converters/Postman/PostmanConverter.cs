@@ -47,6 +47,177 @@ namespace JeniusApps.Nightingale.Converters.Postman
             return collection;
         }
 
+        public PST.Collection ConvertCollection(Item nightingaleCollection)
+        {
+            if (nightingaleCollection == null)
+            {
+                return null;
+            }
+
+            PST.Collection postmanCollection = new PST.Collection()
+            {
+                Info = new PST.Info()
+                {
+                    Name = nightingaleCollection.Name
+                },
+                Items = ConvertItems(nightingaleCollection.Children)
+            };
+
+            return postmanCollection;
+        }
+
+        private PST.Item[] ConvertItems(List<Item> nightingaleCollectionChildren)
+        {
+            if (nightingaleCollectionChildren == null || nightingaleCollectionChildren.Count == 0)
+            {
+                return new PST.Item[0];
+            }
+
+            return nightingaleCollectionChildren.Select(item => item.Type switch
+            {
+                ItemType.Request => new PST.Item()
+                {
+                    Name = item.Name,
+                    Request = ConvertRequest(item)
+                },
+                ItemType.Collection => new PST.Item()
+                {
+                    Name = item.Name,
+                    Items = ConvertItems(item.Children)
+                }
+            }).ToArray();
+        }
+
+        private PST.Request ConvertRequest(Item nightingaleRequest) => nightingaleRequest == null
+            ? null
+            : new PST.Request()
+            {
+                Url = new PST.Url()
+                {
+                    Raw = nightingaleRequest.Url.Base,
+                    Query = ConvertQuery(nightingaleRequest.Url.Queries)
+                },
+                Body = ConvertBody(nightingaleRequest.Body),
+                Method = nightingaleRequest.Method,
+                Auth = ConvertAuth(nightingaleRequest.Auth),
+                Header = ConvertHeaders(nightingaleRequest.Headers),
+            };
+
+
+        private static PST.Query[] ConvertQuery(IEnumerable<Parameter> urlQueries) => urlQueries.Select(urlQuery => new PST.Query()
+        {
+            Disabled = !urlQuery.Enabled,
+            Key = urlQuery.Key,
+            Value = urlQuery.Value
+        }).ToArray();
+
+        private static PST.Parameter[] ConvertHeaders(IReadOnlyCollection<Parameter> nightingaleRequestHeaders) =>
+            nightingaleRequestHeaders != null && nightingaleRequestHeaders.Count > 0
+                ? null
+                : nightingaleRequestHeaders.Select(nightingaleParam => new PST.Parameter()
+                {
+                    Disabled = !nightingaleParam.Enabled,
+                    Key = nightingaleParam.Key,
+                    Value = nightingaleParam.Value,
+                    Type = ParamType.Header.ToString()
+                }).ToArray();
+
+        private PST.Auth ConvertAuth(Authentication nightingaleRequestAuth)
+        {
+            if (nightingaleRequestAuth != null)
+            {
+                return new PST.Auth();
+            }
+
+            var result = new PST.Auth();
+
+            // Basic
+            var username = new PST.Parameter()
+                {Key = "username", Value = nightingaleRequestAuth.GetProp(AuthConstants.BasicUsername)};
+            var password = new PST.Parameter()
+                {Key = "password", Value = nightingaleRequestAuth.GetProp(AuthConstants.BasicPassword)};
+            result.Basic = new PST.Parameter[] {username, password};
+
+            // OAuth 1
+            var consumerKey = new PST.Parameter()
+                {Key = "consumerKey", Value = nightingaleRequestAuth.GetProp(AuthConstants.OAuth1ConsumerKey)};
+            var consumerSecret = new PST.Parameter()
+                {Key = "consumerSecret", Value = nightingaleRequestAuth.GetProp(AuthConstants.OAuth1ConsumerSecret)};
+            var token = new PST.Parameter()
+                {Key = "token", Value = nightingaleRequestAuth.GetProp(AuthConstants.OAuth1AccessToken)};
+            var tokenSecret = new PST.Parameter()
+                {Key = "tokenSecret", Value = nightingaleRequestAuth.GetProp(AuthConstants.OAuth1TokenSecret)};
+            result.Oauth1 = new PST.Parameter[] {consumerKey, consumerSecret, token, tokenSecret};
+
+            // OAuth 2
+            var accessTokenOAuth2 = new PST.Parameter()
+                {Key = "accessToken", Value = nightingaleRequestAuth.GetProp(AuthConstants.BasicUsername)};
+            result.Oauth2 = new PST.Parameter[] {accessTokenOAuth2};
+
+            // Digest
+            var digestUsername = new PST.Parameter()
+                {Key = "username", Value = nightingaleRequestAuth.GetProp(AuthConstants.DigestUsername)};
+            var digestPassword = new PST.Parameter()
+                {Key = "password", Value = nightingaleRequestAuth.GetProp(AuthConstants.DigestPassword)};
+            result.Digest = new PST.Parameter[] {digestUsername, digestPassword};
+
+            result.Type = nightingaleRequestAuth.AuthType.ToString();
+
+            return result;
+        }
+
+        private PST.Body ConvertBody(RequestBody nightingaleRequestBody)
+        {
+            if (nightingaleRequestBody == null)
+            {
+                return null;
+            }
+
+            var result = new PST.Body();
+
+            switch (nightingaleRequestBody.BodyType)
+            {
+                case RequestBodyType.FormEncoded:
+                    result.Mode = "urlencoded";
+                    result.Formdata = nightingaleRequestBody.FormDataList.Select(formElt =>
+                        new PST.FormData()
+                        {
+                            Key = formElt.Key,
+                            Value = formElt.Value,
+                            ContentType = formElt.ContentType,
+                            Disabled = !formElt.Enabled,
+                            Type = formElt.FormDataType == FormDataType.File ? "file" : "text",
+                            Src = formElt.FilePaths.ToArray()
+                        }
+                    ).ToArray();
+                    break;
+                case RequestBodyType.FormData:
+                    result.Mode = "formdata";
+                    result.Urlencoded = nightingaleRequestBody.FormEncodedData.Select(param => new PST.Parameter()
+                    {
+                        Key = param.Key,
+                        Value = param.Value
+                    }).ToArray();
+                    break;
+                case RequestBodyType.Binary:
+                    result.File.Src = nightingaleRequestBody.BinaryFilePath;
+                    break;
+                case RequestBodyType.Json:
+                    result.Options.Raw.Language = "json";
+                    result.Raw = nightingaleRequestBody.JsonBody;
+                    break;
+                case RequestBodyType.Xml:
+                    result.Options.Raw.Language = "xml";
+                    result.Raw = nightingaleRequestBody.XmlBody;
+                    break;
+                case RequestBodyType.Text:
+                    result.Raw = nightingaleRequestBody.TextBody;
+                    break;
+            }
+
+            return result;
+        }
+
         private IList<Item> ConvertItems(PST.Item[] postmanItems)
         {
             if (postmanItems == null || postmanItems.Length == 0)
@@ -82,6 +253,7 @@ namespace JeniusApps.Nightingale.Converters.Postman
                     {
                         ngSubCollection.Children.AddRange(ngChildren);
                     }
+
                     list.Add(ngSubCollection);
                 }
             }
@@ -192,30 +364,39 @@ namespace JeniusApps.Nightingale.Converters.Postman
             var result = new Authentication();
 
             // Basic
-            result.SetProp(AuthConstants.BasicPassword, postmanAuth.Basic?.FirstOrDefault(x => x.Key == "password")?.Value);
-            result.SetProp(AuthConstants.BasicUsername, postmanAuth.Basic?.FirstOrDefault(x => x.Key == "username")?.Value);
+            result.SetProp(AuthConstants.BasicPassword,
+                postmanAuth.Basic?.FirstOrDefault(x => x.Key == "password")?.Value);
+            result.SetProp(AuthConstants.BasicUsername,
+                postmanAuth.Basic?.FirstOrDefault(x => x.Key == "username")?.Value);
 
             // Oauth 1
-            result.SetProp(AuthConstants.OAuth1ConsumerKey, postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "consumerKey")?.Value);
-            result.SetProp(AuthConstants.OAuth1ConsumerSecret, postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "consumerSecret")?.Value);
-            result.SetProp(AuthConstants.OAuth1AccessToken, postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "token")?.Value);
-            result.SetProp(AuthConstants.OAuth1TokenSecret, postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "tokenSecret")?.Value);
+            result.SetProp(AuthConstants.OAuth1ConsumerKey,
+                postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "consumerKey")?.Value);
+            result.SetProp(AuthConstants.OAuth1ConsumerSecret,
+                postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "consumerSecret")?.Value);
+            result.SetProp(AuthConstants.OAuth1AccessToken,
+                postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "token")?.Value);
+            result.SetProp(AuthConstants.OAuth1TokenSecret,
+                postmanAuth.Oauth1?.FirstOrDefault(x => x.Key == "tokenSecret")?.Value);
 
             // Oauth 2
-            result.SetProp(AuthConstants.OAuth2AccessToken, postmanAuth.Oauth2?.FirstOrDefault(x => x.Key == "accessToken")?.Value);
+            result.SetProp(AuthConstants.OAuth2AccessToken,
+                postmanAuth.Oauth2?.FirstOrDefault(x => x.Key == "accessToken")?.Value);
 
             // Bearer
             result.SetProp(AuthConstants.BearerToken, postmanAuth.Bearer?.FirstOrDefault(x => x.Key == "token")?.Value);
 
             // Digest
-            result.SetProp(AuthConstants.DigestPassword, postmanAuth.Digest?.FirstOrDefault(x => x.Key == "password")?.Value);
-            result.SetProp(AuthConstants.DigestUsername, postmanAuth.Digest?.FirstOrDefault(x => x.Key == "username")?.Value);
+            result.SetProp(AuthConstants.DigestPassword,
+                postmanAuth.Digest?.FirstOrDefault(x => x.Key == "password")?.Value);
+            result.SetProp(AuthConstants.DigestUsername,
+                postmanAuth.Digest?.FirstOrDefault(x => x.Key == "username")?.Value);
 
 
             if (Enum.TryParse(postmanAuth.Type, out PST.PostmanAuthType postmanAuthType)
-                && Enum.IsDefined(typeof(AuthType), (int)postmanAuthType))
+                && Enum.IsDefined(typeof(AuthType), (int) postmanAuthType))
             {
-                result.AuthType = (AuthType)postmanAuthType;
+                result.AuthType = (AuthType) postmanAuthType;
             }
 
             return result;
