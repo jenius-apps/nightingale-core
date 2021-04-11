@@ -8,7 +8,7 @@ using PST = Postman.NET.Collections.Models;
 namespace JeniusApps.Nightingale.Converters.Postman
 {
     /// <summary>
-    /// Class for converting Postman collections into Nightingale collections.
+    /// Class for converting Postman collections into Nightingale collections and convert back Nightingale collection to postman collections
     /// </summary>
     public class PostmanConverter : IPostmanConverter
     {
@@ -88,39 +88,51 @@ namespace JeniusApps.Nightingale.Converters.Postman
             }).ToArray();
         }
 
-        private PST.Request ConvertRequest(Item nightingaleRequest) => nightingaleRequest == null
-            ? null
-            : new PST.Request()
-            {
-                Url = new PST.Url()
-                {
-                    Raw = nightingaleRequest.Url.Base,
-                    Query = ConvertQuery(nightingaleRequest.Url.Queries)
-                },
-                Body = ConvertBody(nightingaleRequest.Body),
-                Method = nightingaleRequest.Method,
-                Auth = ConvertAuth(nightingaleRequest.Auth),
-                Header = ConvertHeaders(nightingaleRequest.Headers),
-            };
-
-
-        private static PST.Query[] ConvertQuery(IEnumerable<Parameter> urlQueries) => urlQueries.Select(urlQuery => new PST.Query()
+        private PST.Request? ConvertRequest(Item nightingaleRequest)
         {
-            Disabled = !urlQuery.Enabled,
-            Key = urlQuery.Key,
-            Value = urlQuery.Value
-        }).ToArray();
-
-        private static PST.Parameter[] ConvertHeaders(IReadOnlyCollection<Parameter> nightingaleRequestHeaders) =>
-            nightingaleRequestHeaders != null && nightingaleRequestHeaders.Count > 0
-                ? null
-                : nightingaleRequestHeaders.Select(nightingaleParam => new PST.Parameter()
+            if (nightingaleRequest == null)
+            {
+                return null;
+            }
+            
+            return new PST.Request()
                 {
-                    Disabled = !nightingaleParam.Enabled,
-                    Key = nightingaleParam.Key,
-                    Value = nightingaleParam.Value,
-                    Type = ParamType.Header.ToString()
-                }).ToArray();
+                    Url = new PST.Url()
+                    {
+                        Raw = nightingaleRequest.Url.Base,
+                        Query = ConvertQuery(nightingaleRequest.Url.Queries)
+                    },
+                    Body = ConvertBody(nightingaleRequest.Body),
+                    Method = nightingaleRequest.Method,
+                    Auth = ConvertAuth(nightingaleRequest.Auth),
+                    Header = ConvertHeaders(nightingaleRequest.Headers),
+                };
+        }
+
+
+        private static PST.Query[] ConvertQuery(IEnumerable<Parameter> urlQueries) => urlQueries.Select(urlQuery =>
+            new PST.Query()
+            {
+                Disabled = !urlQuery.Enabled,
+                Key = urlQuery.Key,
+                Value = urlQuery.Value
+            }).ToArray();
+
+        private static PST.Parameter[]? ConvertHeaders(IReadOnlyCollection<Parameter> nightingaleRequestHeaders)
+        {
+            if (nightingaleRequestHeaders is {Count: 0})
+            {
+                return null;
+            }
+
+            return nightingaleRequestHeaders.Select(nightingaleParam => new PST.Parameter()
+            {
+                Disabled = !nightingaleParam.Enabled,
+                Key = nightingaleParam.Key,
+                Value = nightingaleParam.Value,
+                Type = ParamType.Header.ToString()
+            }).ToArray();
+        }
 
         private PST.Auth ConvertAuth(Authentication nightingaleRequestAuth)
         {
@@ -179,24 +191,22 @@ namespace JeniusApps.Nightingale.Converters.Postman
             {
                 case RequestBodyType.FormEncoded:
                     result.Mode = "urlencoded";
-                    result.Formdata = nightingaleRequestBody.FormDataList.Select(formElt =>
-                        new PST.FormData()
-                        {
-                            Key = formElt.Key,
-                            Value = formElt.Value,
-                            ContentType = formElt.ContentType,
-                            Disabled = !formElt.Enabled,
-                            Type = formElt.FormDataType == FormDataType.File ? "file" : "text",
-                            Src = formElt.FilePaths.ToArray()
-                        }
-                    ).ToArray();
-                    break;
-                case RequestBodyType.FormData:
-                    result.Mode = "formdata";
                     result.Urlencoded = nightingaleRequestBody.FormEncodedData.Select(param => new PST.Parameter()
                     {
                         Key = param.Key,
                         Value = param.Value
+                    }).ToArray();
+                    break;
+                case RequestBodyType.FormData:
+                    result.Mode = "formdata";
+                    result.Formdata = nightingaleRequestBody.FormDataList.Select(param => new PST.FormData()
+                    {
+                        Key = param.Key,
+                        Value = param.Value,
+                        ContentType = param.ContentType,
+                        Disabled = !param.Enabled,
+                        Type = param.FormDataType == FormDataType.File ? "file" : "text",
+                        Src = param.FilePaths?.ToArray()
                     }).ToArray();
                     break;
                 case RequestBodyType.Binary:
