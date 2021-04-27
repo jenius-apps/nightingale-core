@@ -3,8 +3,10 @@ using JeniusApps.Nightingale.Data.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using System.Text.RegularExpressions;
 using JeniusApps.Nightingale.Data.Extensions;
 using MimeMapping;
+using Environment = JeniusApps.Nightingale.Data.Models.Environment;
 
 namespace JeniusApps.Nightingale.Converters.Insomnia
 {
@@ -32,7 +34,9 @@ namespace JeniusApps.Nightingale.Converters.Insomnia
             {
                 var nglWorkspace = new Workspace
                 {
-                    Name = workspace.name
+                    Name = workspace.name,
+                    Items = new List<Item>(),
+                    Environments = new List<Environment>()
                 };
 
                 var workspaceItems = exportFile.Resources
@@ -45,7 +49,11 @@ namespace JeniusApps.Nightingale.Converters.Insomnia
 
                     if (item._type == "environment")
                     {
-                        TransferEnv(item, nglWorkspace.Environments);
+                        // Processing the base environment.
+                        var environments =
+                            exportFile.Resources.Where(x => x._type == "environment" && x.parentId == item._id);
+
+                        TransferEnvironments(item, environments, nglWorkspace.Environments);
                         continue;
                     }
 
@@ -62,30 +70,64 @@ namespace JeniusApps.Nightingale.Converters.Insomnia
             return result;
         }
 
-        private void TransferEnv(
-            dynamic env,
-            IList<Environment> to)
+        private void TransferEnvironments(dynamic baseEnv, IEnumerable<dynamic> envs, IList<Environment> to)
         {
-            if (env is JToken token)
+            var baseEnvVariables = new List<Parameter>();
+            if (baseEnv is JToken baseEnvToken)
             {
-                var insomniaEnv = token.ToObject<INS.Environment>();
+                var baseInsomniaEnv = baseEnvToken.ToObject<InsomniaEnvironment>();
+                if (baseInsomniaEnv != null)
+                {
+                    ProcessEnvironmentVariables(baseInsomniaEnv.Data, baseEnvVariables);
+                }
+            }
 
+            foreach (var env in envs)
+            {
+                if (env is not JToken envToken) continue;
+                var insomniaEnv = envToken.ToObject<InsomniaEnvironment>();
+
+                if (insomniaEnv == null) continue;
                 var ntgEnv = new Environment
                 {
-                    Name = insomniaEnv.Name
+                    Name = insomniaEnv.Name,
+                    Variables = new List<Parameter>()
                 };
 
-                foreach (var pair in insomniaEnv.Data)
-                {
-                    ntgEnv.Variables.Add(new Parameter
-                    {
-                        Key = pair.Key,
-                        Value = pair.Value,
-                        Enabled = true
-                    });
-                }
+                ProcessEnvironmentVariables(insomniaEnv.Data, ntgEnv.Variables);
+
+                ntgEnv.Variables.AddRange(baseEnvVariables);
 
                 to.Add(ntgEnv);
+            }
+        }
+
+        private static void ProcessEnvironmentVariables(Dictionary<string, object> variables, List<Parameter> parameters, string keyPrefix = "")
+        {
+            foreach (var pair in variables)
+            {
+                switch (pair.Value)
+                {
+                    case string strValue:
+                        parameters.Add(new Parameter
+                        {
+                            Key = $"{keyPrefix}{pair.Key}",
+                            Value = strValue,
+                            Enabled = true
+                        });
+                        break;
+                    case JObject objValue:
+                    {
+                        var key = $"{keyPrefix}{pair.Key}.";
+                        var data = objValue.ToObject<Dictionary<string, object>>();
+                        if (data != null)
+                        {
+                            ProcessEnvironmentVariables(data, parameters, key);
+                        }
+
+                        break;
+                    }
+                }
             }
         }
 
@@ -236,7 +278,7 @@ namespace JeniusApps.Nightingale.Converters.Insomnia
                     Type = ItemType.Request,
                     Url = new Url()
                     {
-                        Base = insomniaRequest.Url
+                        Base = Regex.Replace(insomniaRequest.Url, @"\s+", "")
                     },
                     Auth = ConvertAuth(insomniaRequest.Authentication) ?? new Authentication(),
                     Body = ConvertBody(insomniaRequest.Body) ?? new RequestBody()
@@ -311,6 +353,11 @@ namespace JeniusApps.Nightingale.Converters.Insomnia
             }
 
             return workspaceCollection;
+        }
+
+        public class InsomniaEnvironment : INS.BaseResource
+        {
+            public Dictionary<string, object> Data { get; set; }
         }
     }
 }
