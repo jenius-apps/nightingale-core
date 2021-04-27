@@ -7,7 +7,7 @@
 	  <AssemblyName>JeniusApps.Nightingale.Converters</AssemblyName>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Version>4.1.2-preview</Version>
+	  <Version>4.2.0-preview</Version>
 	  <PackageTags>restapi,nightingale,webapi,jeniusapps,ncf,http,httpclient</PackageTags>
 	  <RepositoryUrl>https://github.com/jenius-apps/nightingale-core</RepositoryUrl>
 	  <Authors>Daniel Paulino</Authors>
@@ -23,7 +23,9 @@
 	  <PackageIcon>logo.png</PackageIcon>
 	  <LangVersion>9.0</LangVersion>
 	  <Nullable>enable</Nullable>
-	  <PackageReleaseNotes>- Fixed null reference error</PackageReleaseNotes>
+	  <PackageReleaseNotes>- Added nightingale to postman converter
+- Added OData to nightingale converter
+- Fixed issues with insomnia environments conversion</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
