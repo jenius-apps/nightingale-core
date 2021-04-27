@@ -1,4 +1,5 @@
 ﻿using JeniusApps.Nightingale.Data.Models;
+using Newtonsoft.Json;
 using PST = Postman.NET.Collections.Models;
 
 namespace JeniusApps.Nightingale.Converters.Postman
@@ -16,5 +17,7 @@ namespace JeniusApps.Nightingale.Converters.Postman
         /// <param name="postmanCollection">The <see cref="PST.Collection"/> to convert.</param>
         /// <returns>An <see cref="Item"/>.</returns>
         Item? ConvertCollection(PST.Collection postmanCollection);
+
+        PST.Collection ConvertCollection(Item nightingaleCollection);
     }
 }
