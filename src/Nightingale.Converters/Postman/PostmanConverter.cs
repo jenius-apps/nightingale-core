@@ -210,14 +210,29 @@ namespace JeniusApps.Nightingale.Converters.Postman
                     }).ToArray();
                     break;
                 case RequestBodyType.Binary:
-                    result.File.Src = nightingaleRequestBody.BinaryFilePath;
+                    result.File = new PST.FileAttachment
+                    {
+                        Src = nightingaleRequestBody.BinaryFilePath
+                    };
                     break;
                 case RequestBodyType.Json:
-                    result.Options.Raw.Language = "json";
+                    result.Options = new PST.BodyOptions
+                    {
+                        Raw = new PST.RawOptions
+                        {
+                            Language = "json"
+                        }
+                    };
                     result.Raw = nightingaleRequestBody.JsonBody;
                     break;
                 case RequestBodyType.Xml:
-                    result.Options.Raw.Language = "xml";
+                    result.Options = new PST.BodyOptions
+                    {
+                        Raw = new PST.RawOptions
+                        {
+                            Language = "xml"
+                        }
+                    };
                     result.Raw = nightingaleRequestBody.XmlBody;
                     break;
                 case RequestBodyType.Text:

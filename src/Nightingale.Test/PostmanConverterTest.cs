@@ -278,7 +278,117 @@ namespace Nightingale.Test
             Assert.Equal("application/json", ngItem.Children[0].Headers[0].Value);
         }
 
-        [Fact]
+		[Fact]
+		public void NgToPostman_JsonBodyAdded()
+        {
+			var convert = new PostmanConverter();
+			var data = @"
+			{
+				""id"": ""c82916bc-a9be-4bdb-82ee-8cadd034ed32"",
+				""parentId"": null,
+				""IsTemporary"": false,
+				""Properties"": {},
+				""Url"": {
+					""Base"": null,
+					""Queries"": []
+				},
+				""Auth"": {
+					""AuthType"": 0,
+					""AuthProperties"": null
+				},
+				""Body"": {
+					""BodyType"": 0,
+					""JsonBody"": null,
+					""XmlBody"": null,
+					""TextBody"": null,
+					""FormEncodedData"": [],
+					""FormDataList"": [],
+					""BinaryFilePath"": null
+				},
+				""MockData"": {
+					""Body"": null,
+					""StatusCode"": 200,
+					""ContentType"": ""application/json""
+				},
+				""Children"": [
+					{
+						""id"": ""b612de21-fbd4-46ee-a820-7ce35b09c1b9"",
+						""parentId"": null,
+						""IsTemporary"": false,
+						""Properties"": {
+							""RequestPivotIndex"": 3
+						},
+						""Url"": {
+							""Base"": ""asdfa234234234?"",
+							""Queries"": [
+								{
+									""Key"": ""s"",
+									""Value"": ""asdf"",
+									""Enabled"": true,
+									""Private"": false,
+									""Type"": 0
+								},
+								{
+									""Key"": ""dasdf"",
+									""Value"": ""asdf"",
+									""Enabled"": true,
+									""Private"": false,
+									""Type"": 0
+								},
+								{
+									""Key"": ""fasdf"",
+									""Value"": ""asdf"",
+									""Enabled"": true,
+									""Private"": false,
+									""Type"": 0
+								}
+							]
+						},
+						""Auth"": {
+							""AuthType"": 0,
+							""AuthProperties"": null
+						},
+						""Body"": {
+							""BodyType"": 1,
+							""JsonBody"": ""2342fasdfasdf"",
+							""XmlBody"": null,
+							""TextBody"": null,
+							""FormEncodedData"": [],
+							""FormDataList"": [],
+							""BinaryFilePath"": null
+						},
+						""MockData"": {
+							""Body"": null,
+							""StatusCode"": 200,
+							""ContentType"": ""application/json""
+						},
+						""Children"": [],
+						""Headers"": [],
+						""ChainingRules"": [],
+						""Type"": 1,
+						""Name"": ""asdf"",
+						""IsExpanded"": false,
+						""Method"": ""GET"",
+						""Response"": null
+					}
+				],
+				""Headers"": [],
+				""ChainingRules"": [],
+				""Type"": 2,
+				""Name"": ""Untitled"",
+				""IsExpanded"": true,
+				""Method"": ""GET"",
+				""Response"": null
+			}";
+
+			var ngItem = JsonConvert.DeserializeObject<Item>(data);
+			var ptCollection = convert.ConvertCollection(ngItem);
+			var item = ptCollection.Items[0];
+
+			Assert.Equal("json", item.Request.Body.Options.Raw.Language);
+		}
+
+		[Fact]
         public void NgToPostman_QueryIsTranslated()
         {
             var convert = new PostmanConverter();
