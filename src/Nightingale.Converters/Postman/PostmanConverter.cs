@@ -58,7 +58,8 @@ namespace JeniusApps.Nightingale.Converters.Postman
             {
                 Info = new PST.Info()
                 {
-                    Name = nightingaleCollection.Name
+                    Name = nightingaleCollection.Name,
+                    Schema = SupportedSchemas[0]
                 },
                 Items = ConvertItems(nightingaleCollection.Children)
             };

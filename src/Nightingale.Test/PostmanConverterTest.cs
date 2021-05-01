@@ -278,6 +278,19 @@ namespace Nightingale.Test
             Assert.Equal("application/json", ngItem.Children[0].Headers[0].Value);
         }
 
+        [Fact]
+		public void NgToPostman_SchemaAdded()
+        {
+			var convert = new PostmanConverter();
+			var ptCollection = convert.ConvertCollection(new Item());
+
+			// Ensure that some schema was added to the converted file.
+			// Or else importing to postman will fail.
+			// What schema to expect may change over time, so this test
+			// may need to be updated as newer schemas are supported.
+			Assert.Equal(PostmanConverter.SupportedSchemas[0], ptCollection.Info.Schema);
+		}
+
 		[Fact]
 		public void NgToPostman_JsonBodyAdded()
         {
