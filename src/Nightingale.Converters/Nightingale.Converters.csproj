@@ -7,7 +7,7 @@
 	  <AssemblyName>JeniusApps.Nightingale.Converters</AssemblyName>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Version>4.2.2-preview</Version>
+	  <Version>4.2.3-preview</Version>
 	  <PackageTags>restapi,nightingale,webapi,jeniusapps,ncf,http,httpclient</PackageTags>
 	  <RepositoryUrl>https://github.com/jenius-apps/nightingale-core</RepositoryUrl>
 	  <Authors>Daniel Paulino</Authors>
@@ -23,11 +23,11 @@
 	  <PackageIcon>logo.png</PackageIcon>
 	  <LangVersion>9.0</LangVersion>
 	  <Nullable>enable</Nullable>
-	  <PackageReleaseNotes>- Fixed empty schema issue when converting to postman</PackageReleaseNotes>
+	  <PackageReleaseNotes>- updated insomnia.net models</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JeniusApps.Insomnia.NET" Version="0.0.3-preview" />
+    <PackageReference Include="JeniusApps.Insomnia.NET" Version="0.0.4-preview" />
     <PackageReference Include="JeniusApps.Postman.NET" Version="0.2.4-preview" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.OData.Core" Version="7.8.2" />
